@@ -32,9 +32,9 @@ export function Hero() {
       {/* Map */}
       <m.div
         style={{ y: mapY, opacity: mapOpacity }}
-        className="absolute inset-x-0 top-[calc(var(--header-h)+0.5rem)] h-[36svh] md:h-[50svh] max-lg:[@media(min-height:701px)_and_(max-height:760px)]:h-[30svh] max-lg:[@media(max-height:700px)]:h-[23svh] lg:inset-y-0 lg:left-[44%] lg:right-0 lg:top-0 lg:h-auto"
+        className="relative mt-[var(--header-h)] min-h-[140px] flex-1 lg:absolute lg:inset-y-0 lg:left-[44%] lg:right-0 lg:top-0 lg:mt-0 lg:min-h-0 lg:flex-none"
       >
-        <div className="tf-fade-scale relative h-full w-full" style={{ "--d": "0.2s" } as React.CSSProperties}>
+        <div className="tf-fade-scale absolute inset-0" style={{ "--d": "0.2s" } as React.CSSProperties}>
           <NetworkMap onAlert={onAlert} className="absolute inset-0 h-full w-full" />
           {REGION_POS.map((p, i) => (
             <span
@@ -52,7 +52,7 @@ export function Hero() {
       </m.div>
 
       {/* Copy */}
-      <div className="container-x relative mt-auto pb-8 pt-[38svh] text-center md:pt-[54svh] max-lg:[@media(min-height:701px)_and_(max-height:760px)]:pt-[31svh] max-lg:[@media(max-height:700px)]:pt-[calc(var(--header-h)+1rem+23svh)] lg:my-auto lg:pb-0 lg:pt-[var(--header-h)] lg:text-left">
+      <div className="container-x relative shrink-0 pb-[max(2rem,calc(env(safe-area-inset-bottom)+1rem))] pt-1 text-center lg:my-auto lg:pb-0 lg:pt-[var(--header-h)] lg:text-left">
         {/* Mobile / tablet version of the status panel */}
         <MobileStatus alert={alert} />
         <div className="mx-auto max-w-[40rem] lg:mx-0 lg:max-w-[52rem]">
