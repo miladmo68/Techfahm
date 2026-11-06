@@ -12,7 +12,14 @@ const social = [
 
 export function Footer() {
   return (
-    <footer className="on-dark relative overflow-hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+    <footer className="on-dark relative isolate overflow-hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+      {/* Big wordmark as a centred background for the whole footer */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 flex select-none items-center justify-center overflow-hidden">
+        <p className="whitespace-nowrap font-display text-[24vw] font-bold leading-none tracking-[-0.06em] text-white/[0.035]">
+          techfahm
+        </p>
+      </div>
+
       <div className="container-x grid gap-12 pb-12 pt-20 md:grid-cols-12">
         <div className="md:col-span-4">
           <Logo tone="light" />
@@ -58,16 +65,20 @@ export function Footer() {
         />
       </div>
 
-      <div aria-hidden className="pointer-events-none select-none overflow-hidden">
-        <p className="container-x -mb-[0.2em] whitespace-nowrap font-display text-[20vw] font-bold leading-none tracking-[-0.06em] text-white/[0.04]">
-          techfahm
-        </p>
-      </div>
-
       <div className="border-t border-white/10">
         <div className="container-x flex flex-col gap-2 py-6 text-sm text-white/55 sm:flex-row sm:justify-between">
           <p>© {new Date().getFullYear()} Techfahm Systems Inc. All rights reserved.</p>
-          <p>Serving {site.regions.join(", ")}</p>
+          <p>
+            Designed &amp; developed by{" "}
+            <a
+              href="https://milink.ca"
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-white/80 underline decoration-signal/70 underline-offset-4 transition-colors hover:text-white"
+            >
+              Milink
+            </a>
+          </p>
         </div>
       </div>
     </footer>
