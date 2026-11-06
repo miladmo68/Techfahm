@@ -10,7 +10,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
-  // Only set for the GitHub Pages preview (e.g. "/techfahm"). Empty for techfahm.com.
+  // Only set for the GitHub Pages preview (e.g. "/Techfahm"). Empty for techfahm.com.
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || undefined,
   images: {
     loader: "custom",

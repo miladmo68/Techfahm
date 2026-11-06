@@ -2,7 +2,7 @@
 
 A fast, mobile-first rebuild of [techfahm.com](https://techfahm.com) (previously WordPress) for **Techfahm Systems Inc.**, a managed IT services provider serving the Greater Toronto Area, Hamilton & Niagara and the Waterloo Region.
 
-**Live preview:** https://miladmo68.github.io/techfahm/  
+**Live preview:** https://miladmo68.github.io/Techfahm/  
 **Designed & developed by [Milink](https://milink.ca)**
 
 ![Homepage hero with the live network map](docs/screenshots/desktop-hero.webp)
@@ -71,7 +71,7 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 
 Every decision, the design tokens, the file map and the change log are in [`docs/CONTEXT.md`](docs/CONTEXT.md). AI assistants should read [`CLAUDE.md`](CLAUDE.md) first. All copy lives in `src/content/`.
 
-The GitHub Pages preview is built by [`.github/workflows/pages.yml`](.github/workflows/pages.yml) under `/techfahm` and is marked `noindex`, so it never competes with techfahm.com in search.
+The GitHub Pages preview is built by [`.github/workflows/pages.yml`](.github/workflows/pages.yml) under `/Techfahm` and is marked `noindex`, so it never competes with techfahm.com in search.
 
 ---
 

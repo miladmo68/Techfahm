@@ -1,4 +1,4 @@
-# Live preview on GitHub Pages: https://miladmo68.github.io/techfahm/
+# Live preview on GitHub Pages: https://miladmo68.github.io/Techfahm/
 # The preview is noindex so it never competes with techfahm.com in Google.
 name: Deploy preview to GitHub Pages
 
@@ -27,10 +27,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-      - name: Build static site under /techfahm
+      - name: Build static site under /Techfahm
         run: npm run build
         env:
-          NEXT_PUBLIC_BASE_PATH: /techfahm
+          NEXT_PUBLIC_BASE_PATH: /Techfahm
           NEXT_PUBLIC_WEB3FORMS_KEY: ${{ secrets.WEB3FORMS_KEY }}
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3

@@ -21,7 +21,7 @@ Rebuild https://techfahm.com (WordPress + Slider Revolution) as a premium, mobil
 | Local SEO | `/managed-it-services-{toronto,hamilton,waterloo}/` from `src/content/locations.ts` (dynamic `[location]` route) | Rank for "IT support + city" searches |
 | Share images | `opengraph-image.tsx` next to every page, rendered by `src/lib/og.tsx` (next/og, Schibsted font, real photo) | Branded previews on LinkedIn, Facebook, X, iMessage |
 | Security | Headers + rules in `public/.htaccess` (CSP, HSTS, 410 for WP paths, method + file blocking), `public/.well-known/security.txt` | Static site on shared Apache |
-| Preview hosting | GitHub Pages via `.github/workflows/pages.yml`, `NEXT_PUBLIC_BASE_PATH=/techfahm`, auto `noindex` | Free live preview without hurting SEO |
+| Preview hosting | GitHub Pages via `.github/workflows/pages.yml`, `NEXT_PUBLIC_BASE_PATH=/Techfahm`, auto `noindex` | Free live preview without hurting SEO |
 | Brand red | `#E41C38`, sampled from the real logo | Exact match with logo |
 
 ## Design system
@@ -65,7 +65,7 @@ HTTPS redirect + HSTS · Content-Security-Policy (self + Web3Forms only) · X-Fr
 ## Status
 - [x] All pages built, lint + build pass, screenshots checked at 390px and 1440px
 - [x] Real photos + logo downloaded with `npm run images` and committed
-- [ ] Push to GitHub `miladmo68/techfahm` and enable GitHub Pages (Settings → Pages → Source: GitHub Actions)
+- [ ] Push to GitHub `miladmo68/Techfahm` and enable GitHub Pages (Settings → Pages → Source: GitHub Actions)
 - [ ] Add Web3Forms key to `.env.local`, rebuild, send a test message
 - [ ] Lighthouse run on the real-image build
 - [ ] After go-live: verify Google Search Console + Bing, submit sitemap, create/claim the free Google Business Profile
