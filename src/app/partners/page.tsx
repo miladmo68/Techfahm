@@ -31,15 +31,15 @@ export default function PartnersPage() {
       />
       <section className="section bg-paper">
         <div className="container-x">
-          <RevealLines className="t-h2 max-w-3xl" lines={["Direct access to our", "partner network."]} />
-          <p className="muted t-lead mt-6 max-w-2xl">
+          <RevealLines className="t-h2 mx-auto max-w-3xl text-center md:mx-0 md:text-left" lines={["Direct access to our", "partner network."]} />
+          <p className="muted t-lead mx-auto mt-6 max-w-2xl text-center md:mx-0 md:text-left">
             We choose and configure the products that fit your goals, then manage them for you, so you get custom IT
             solutions instead of off-the-shelf bundles.
           </p>
           <ul className="mt-14 grid gap-5 sm:grid-cols-2">
             {partnerLogos.map((p, i) => (
               <Reveal key={p.name} delay={i * 0.06}>
-                <li className="flex h-full flex-col justify-between gap-10 rounded-[1.5rem] border border-ink/10 bg-white p-8">
+                <li className="flex h-full flex-col items-center justify-between gap-8 rounded-[1.5rem] border border-ink/10 bg-white p-8 text-center sm:items-start sm:gap-10 sm:text-left">
                   <div className="text-ink">{p.node}</div>
                   <p className="muted">{notes[p.name]}</p>
                 </li>

@@ -143,3 +143,19 @@ export function TextLink({ className, children, ...props }: ComponentProps<typeo
     </Link>
   );
 }
+
+/** Image wrapper that settles from a slight zoom when it scrolls into view (touch-friendly). */
+export function ZoomIn({ children, className }: { children: ReactNode; className?: string }) {
+  const reduce = useReducedMotion();
+  return (
+    <m.div
+      className={cn("absolute inset-0", className)}
+      initial={reduce ? false : { scale: 1.18 }}
+      whileInView={{ scale: 1 }}
+      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+      transition={{ duration: 1.4, ease: EASE }}
+    >
+      {children}
+    </m.div>
+  );
+}

@@ -85,6 +85,9 @@ export function NetworkMap({ onAlert, className }: { onAlert?: (s: AlertState) =
     let visible = true;
     let last = performance.now();
     const pointer = { x: -9999, y: -9999 };
+    // Touch screens have no hover, so a soft spotlight drifts across the map instead
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    let lastTouch = 0;
 
     // alert cycle
     let alertNode = -1;
@@ -106,6 +109,18 @@ export function NetworkMap({ onAlert, className }: { onAlert?: (s: AlertState) =
 
     function draw(time: number, dt: number) {
       ctx.clearRect(0, 0, w, h);
+      if (!finePointer && time - lastTouch > 1800) {
+        const t = time * 0.00022;
+        pointer.x = w * (0.5 + 0.38 * Math.sin(t * 1.3));
+        pointer.y = h * (0.52 + 0.3 * Math.sin(t * 2.1 + 1));
+      }
+      if (!finePointer && pointer.x > -1000) {
+        const g = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 130);
+        g.addColorStop(0, "rgba(228,28,56,0.14)");
+        g.addColorStop(1, "rgba(228,28,56,0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+      }
       const scale = Math.min(w, h) / 600;
 
       // links
@@ -164,7 +179,7 @@ export function NetworkMap({ onAlert, className }: { onAlert?: (s: AlertState) =
       nodes.forEach((n, i) => {
         const { x, y } = P(n);
         const dist = Math.hypot(pointer.x - x, pointer.y - y);
-        const near = Math.max(0, 1 - dist / 160);
+        const near = Math.max(0, 1 - dist / (finePointer ? 160 : 120));
         const isAlert = i === alertNode && alertStage !== "ok";
         const pulse = (Math.sin(time * 0.0018 + n.phase) + 1) / 2;
         const r = n.r * Math.max(scale, 0.85) * (1 + near * 0.8);
@@ -233,6 +248,7 @@ export function NetworkMap({ onAlert, className }: { onAlert?: (s: AlertState) =
       const r = canvas.getBoundingClientRect();
       pointer.x = e.clientX - r.left;
       pointer.y = e.clientY - r.top;
+      if (e.pointerType !== "mouse") lastTouch = performance.now();
     };
     const onLeave = () => {
       pointer.x = pointer.y = -9999;

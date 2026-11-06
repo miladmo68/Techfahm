@@ -33,7 +33,7 @@ export default async function IndustryDetail({ params }: { params: Promise<{ slu
 
       <section className="section bg-paper">
         <div className="container-x">
-          <Reveal className="prose-x t-lead text-ink/80">
+          <Reveal className="prose-x t-lead mx-auto text-center text-ink/80 md:mx-0 md:text-left">
             {ind.intro.map((p) => (
               <p key={p.slice(0, 20)}>{p}</p>
             ))}
@@ -42,11 +42,11 @@ export default async function IndustryDetail({ params }: { params: Promise<{ slu
           <div className="mt-16 divide-y divide-ink/10 border-y border-ink/10">
             {ind.sections.map((sec) => (
               <div key={sec.title} className="grid gap-6 py-12 md:grid-cols-12 md:gap-10">
-                <RevealLines as="h2" className="t-h3 md:col-span-4" lines={[sec.title]} />
+                <RevealLines as="h2" className="t-h3 text-center md:col-span-4 md:text-left" lines={[sec.title]} />
                 <Reveal className="md:col-span-8">
-                  <p className="muted max-w-2xl text-[1.06rem]">{sec.body}</p>
+                  <p className="muted mx-auto max-w-2xl text-center text-[1.06rem] md:mx-0 md:text-left">{sec.body}</p>
                   {sec.points && (
-                    <ul className="mt-6 grid gap-3 sm:grid-cols-1">
+                    <ul className="mx-auto mt-6 grid max-w-md gap-3 md:mx-0 md:max-w-none">
                       {sec.points.map((pt) => (
                         <li key={pt} className="flex gap-3 text-[1.02rem]">
                           <span aria-hidden className="mt-3 h-px w-5 shrink-0 bg-signal" />
@@ -60,9 +60,9 @@ export default async function IndustryDetail({ params }: { params: Promise<{ slu
             ))}
           </div>
 
-          <div className="mt-16 rounded-[1.75rem] bg-ink p-8 text-white sm:p-10">
+          <div className="mt-16 rounded-[1.75rem] bg-ink p-8 text-center text-white sm:p-10 md:text-left">
             <h2 className="font-sans text-base font-medium text-white/60">Platforms we work with</h2>
-            <ul className="mt-5 flex flex-wrap gap-3">
+            <ul className="mt-5 flex flex-wrap justify-center gap-3 md:justify-start">
               {ind.platforms.map((p) => (
                 <li key={p} className="rounded-full border border-white/15 px-5 py-2.5 text-[1.02rem]">
                   {p}

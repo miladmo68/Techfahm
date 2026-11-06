@@ -42,7 +42,7 @@ export function PartnersStrip() {
   const row = [...partnerLogos, ...partnerLogos, ...partnerLogos];
   return (
     <section aria-label="Technology partners" className="border-b border-ink/5 bg-paper py-10 md:py-14">
-      <div className="container-x mb-6 flex flex-col gap-1 md:mb-8 md:flex-row md:items-baseline md:justify-between">
+      <div className="container-x mb-6 flex flex-col items-center gap-1 text-center md:mb-8 md:flex-row md:items-baseline md:justify-between md:text-left">
         <p className="font-medium text-ink">We work with the platforms you already rely on</p>
         <p className="muted text-sm">Technology partners</p>
       </div>

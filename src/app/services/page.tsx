@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Cta, PageHero } from "@/components/sections/home-sections";
 import { Photo } from "@/components/ui/photo";
-import { Reveal } from "@/components/ui/motion";
+import { Reveal, ZoomIn } from "@/components/ui/motion";
 import { services } from "@/content/services";
 import { JsonLd, breadcrumbLd, pageMeta, serviceLd } from "@/lib/seo";
 
@@ -28,18 +28,20 @@ export default function ServicesPage() {
               <Reveal>
                 <Link href={`/services/${s.slug}/`} className="group grid items-center gap-6 py-8 md:grid-cols-12 md:gap-10 md:py-10">
                   <div className="relative aspect-[16/10] overflow-hidden rounded-[1.25rem] md:col-span-4">
-                    <Photo
-                      name={s.image}
-                      alt={s.imageAlt}
-                      fill
-                      sizes="(min-width:768px) 33vw, 100vw"
-                      className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
-                    />
+                    <ZoomIn>
+                      <Photo
+                        name={s.image}
+                        alt={s.imageAlt}
+                        fill
+                        sizes="(min-width:768px) 33vw, 100vw"
+                        className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
+                      />
+                    </ZoomIn>
                   </div>
-                  <div className="md:col-span-7">
+                  <div className="text-center md:col-span-7 md:text-left">
                     <p className="muted text-sm">Service {i + 1}</p>
                     <h2 className="t-h2 mt-2 transition-colors group-hover:text-signal">{s.title}</h2>
-                    <p className="muted mt-3 max-w-xl text-[1.05rem]">{s.short}</p>
+                    <p className="muted mx-auto mt-3 max-w-xl text-[1.05rem] md:mx-0">{s.short}</p>
                   </div>
                   <span
                     aria-hidden

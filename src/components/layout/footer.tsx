@@ -4,6 +4,7 @@ import { services } from "@/content/services";
 import { industries } from "@/content/industries";
 import { site } from "@/content/site";
 import { locations } from "@/content/locations";
+import { cn } from "@/lib/utils";
 
 const social = [
   { label: "LinkedIn", href: site.social.linkedin, d: "M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-4.98c0-1.19-.02-2.72-1.66-2.72-1.66 0-1.91 1.3-1.91 2.63V21h-4V9.75Z" },
@@ -15,7 +16,7 @@ export function Footer() {
   return (
     <footer className="on-dark relative overflow-hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
       <div className="container-x grid grid-cols-2 gap-x-6 gap-y-10 pb-10 pt-14 md:grid-cols-12 md:gap-12 md:pb-12 md:pt-16">
-        <div className="col-span-2 md:col-span-4">
+        <div className="col-span-2 flex flex-col items-center text-center md:col-span-4 md:items-start md:text-left">
           <Logo tone="light" />
           <p className="muted mt-5 max-w-xs text-[0.95rem]">
             Managed IT services for businesses across{" "}
@@ -32,7 +33,7 @@ export function Footer() {
             <a className="block hover:text-signal" href={site.phoneHref}>{site.phone}</a>
             <a className="block hover:text-signal" href={`mailto:${site.email}`}>{site.email}</a>
           </div>
-          <ul className="mt-6 flex gap-2">
+          <ul className="mt-6 flex justify-center gap-2 md:justify-start">
             {social.map((s) => (
               <li key={s.label}>
                 <a
@@ -68,7 +69,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container-x flex flex-col gap-1.5 py-5 text-sm text-white/55 sm:flex-row sm:justify-between">
+        <div className="container-x flex flex-col items-center gap-1.5 py-5 text-center text-sm text-white/55 sm:flex-row sm:justify-between sm:text-left">
           <p>© {new Date().getFullYear()} Techfahm Systems Inc. All rights reserved.</p>
           <p>
             Designed &amp; developed by{" "}
@@ -89,7 +90,7 @@ export function Footer() {
 
 function FooterCol({ title, links, className }: { title: string; links: { label: string; href: string }[]; className?: string }) {
   return (
-    <div className={className}>
+    <div className={cn("text-center md:text-left", className)}>
       <h2 className="font-sans text-sm font-medium text-white/50">{title}</h2>
       <ul className="mt-3 space-y-0.5">
         {links.map((l) => (

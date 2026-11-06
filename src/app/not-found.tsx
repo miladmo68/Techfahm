@@ -7,11 +7,11 @@ export const metadata = { title: "Page not found", robots: { index: false } };
 export default function NotFound() {
   return (
     <section className="on-dark grain relative flex min-h-[100svh] items-center pt-[var(--header-h)]">
-      <div className="container-x py-20">
+      <div className="container-x py-20 text-center md:text-left">
         <p className="font-mono text-sm text-signal">404</p>
         <h1 className="t-h1 mt-4 max-w-3xl text-white">This page isn&apos;t on our network.</h1>
-        <p className="muted t-lead mt-6 max-w-xl">The address may have changed when we rebuilt the site. Try one of these instead.</p>
-        <div className="mt-10 flex flex-wrap gap-3">
+        <p className="muted t-lead mx-auto mt-6 max-w-xl md:mx-0">The address may have changed when we rebuilt the site. Try one of these instead.</p>
+        <div className="mt-10 flex flex-wrap justify-center gap-3 md:justify-start">
           <Button asChild size="lg"><Link href="/">Go to the homepage</Link></Button>
           <Button asChild size="lg" variant="outline" className="text-white"><Link href="/contact/">Contact us</Link></Button>
         </div>

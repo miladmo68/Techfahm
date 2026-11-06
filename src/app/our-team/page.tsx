@@ -31,9 +31,9 @@ export default function TeamPage() {
       />
       <section className="section bg-paper">
         <div className="container-x grid gap-14 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+          <div className="text-center lg:col-span-5 lg:text-left">
             <RevealLines className="t-h2" lines={["How people join", "the team."]} />
-            <p className="muted t-lead mt-6 max-w-md">A careful process means the person working on your systems is qualified to do it.</p>
+            <p className="muted t-lead mx-auto mt-6 max-w-md lg:mx-0">A careful process means the person working on your systems is qualified to do it.</p>
           </div>
           <ol className="lg:col-span-7">
             {steps.map((s, i) => (
@@ -52,8 +52,8 @@ export default function TeamPage() {
       </section>
       <section className="section on-dark">
         <div className="container-x">
-          <RevealLines className="t-h2 text-white" lines={["Specialties across", "the whole stack."]} />
-          <ul className="mt-12 flex flex-wrap gap-3">
+          <RevealLines className="t-h2 text-center text-white md:text-left" lines={["Specialties across", "the whole stack."]} />
+          <ul className="mt-12 flex flex-wrap justify-center gap-3 md:justify-start">
             {skills.map((s) => (
               <li key={s} className="rounded-full border border-white/15 px-5 py-3 text-[1.02rem]">{s}</li>
             ))}

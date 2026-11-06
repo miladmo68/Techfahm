@@ -2,7 +2,7 @@
 
 import { m, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Photo } from "@/components/ui/photo";
 import { RevealLines, TextLink } from "@/components/ui/motion";
 import { services, type Service } from "@/content/services";
@@ -20,8 +20,8 @@ export function ServicesStack() {
     <section id="services" className="section bg-paper">
       <div className="container-x">
         <div className="grid gap-6 md:grid-cols-12 md:items-end">
-          <RevealLines className="t-h2 md:col-span-7" lines={["Everything your IT needs,", "handled by one team."]} />
-          <div className="md:col-span-5">
+          <RevealLines className="t-h2 text-center md:col-span-7 md:text-left" lines={["Everything your IT needs,", "handled by one team."]} />
+          <div className="text-center md:col-span-5 md:text-left">
             <p className="muted t-lead">
               Pick a single service or hand us the whole stack. Either way, you get people who know your setup and
               answer for it.
@@ -44,26 +44,24 @@ export function ServicesStack() {
 
 function Panel({ s, i, total, progress }: { s: Service; i: number; total: number; progress: MotionValue<number> }) {
   const reduce = useReducedMotion();
-  const [desktop, setDesktop] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    const on = () => setDesktop(mq.matches);
-    on();
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  const still = reduce || !desktop;
+  const still = reduce;
   const start = i / total;
   const scale = useTransform(progress, [start, 1], still ? [1, 1] : [1, 1 - (total - i) * 0.025]);
   const dim = useTransform(progress, [start, start + 1 / total], still ? [0, 0] : [0, i === total - 1 ? 0 : 0.35]);
 
   return (
-    <div className="mb-5 md:sticky md:mb-0 md:h-[78vh] md:pb-10" style={{ top: `calc(var(--header-h) + 1.5rem + ${i * 14}px)` }}>
+    <div
+      className="sticky pb-4 [--stack-gap:10px] md:h-[78vh] md:pb-10 md:[--stack-gap:14px]"
+      style={{ top: `calc(var(--header-h) + 1rem + ${i} * var(--stack-gap))` }}
+    >
       <m.article
         style={{ scale }}
         className="on-dark relative grid h-full origin-top overflow-hidden rounded-[1.75rem] bg-ink text-white shadow-[0_30px_80px_-40px_rgb(10_22_40/0.6)] md:grid-cols-2 md:rounded-[2.25rem]"
       >
-        <div className="relative aspect-[16/10] md:order-2 md:aspect-auto">
+        <div className="relative aspect-[16/9] md:order-2 md:aspect-auto">
+          <span className="absolute left-4 top-4 z-10 rounded-full bg-ink/60 px-3 py-1 text-xs text-white/80 backdrop-blur md:hidden">
+            {i + 1} / {total}
+          </span>
           <Photo
             name={s.image}
             alt={s.imageAlt}
@@ -73,8 +71,8 @@ function Panel({ s, i, total, progress }: { s: Service; i: number; total: number
           />
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent md:bg-gradient-to-r md:from-ink md:via-ink/20" />
         </div>
-        <div className="relative flex flex-col justify-between gap-8 p-6 sm:p-8 md:p-12">
-          <div className="flex items-center justify-between text-sm text-white/50">
+        <div className="relative flex flex-col justify-between gap-6 p-6 sm:p-8 md:gap-8 md:p-12">
+          <div className="hidden items-center justify-between text-sm text-white/50 md:flex">
             <span>
               Service {i + 1} of {total}
             </span>
@@ -93,7 +91,7 @@ function Panel({ s, i, total, progress }: { s: Service; i: number; total: number
           </div>
           <Link
             href={`/services/${s.slug}/`}
-            className="inline-flex w-fit items-center gap-3 rounded-full bg-white/10 py-2 pl-5 pr-2 text-sm font-medium backdrop-blur transition-colors hover:bg-signal"
+            className="inline-flex w-full items-center justify-between gap-3 rounded-full bg-white/10 py-2 pl-5 pr-2 text-sm font-medium backdrop-blur transition-colors hover:bg-signal active:bg-signal sm:w-fit sm:justify-start"
           >
             Explore {s.title.toLowerCase()}
             <span className="grid size-8 place-items-center rounded-full bg-white text-ink">

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Cta, Faq, PageHero } from "@/components/sections/home-sections";
 import { IntroBlock } from "@/components/sections/detail";
 import { Photo } from "@/components/ui/photo";
-import { Reveal, RevealLines } from "@/components/ui/motion";
+import { Reveal, RevealLines, ZoomIn } from "@/components/ui/motion";
 import { getLocation, locations, regionName } from "@/content/locations";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
@@ -51,7 +51,7 @@ export default async function LocationPage({ params }: { params: Promise<{ locat
 
       <section className="section bg-mist">
         <div className="container-x">
-          <RevealLines className="t-h2 max-w-3xl" lines={[`IT services for ${l.city}`, "businesses"]} />
+          <RevealLines className="t-h2 mx-auto max-w-3xl text-center md:mx-0 md:text-left" lines={[`IT services for ${l.city}`, "businesses"]} />
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
               <Link
@@ -60,13 +60,15 @@ export default async function LocationPage({ params }: { params: Promise<{ locat
                 className="group overflow-hidden rounded-[1.5rem] bg-white transition-shadow duration-500 hover:shadow-[0_24px_60px_-30px_rgb(10_22_40/0.45)]"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <Photo
-                    name={s.image}
-                    alt={s.imageAlt}
-                    fill
-                    sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
-                  />
+                  <ZoomIn>
+                    <Photo
+                      name={s.image}
+                      alt={s.imageAlt}
+                      fill
+                      sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
+                    />
+                  </ZoomIn>
                 </div>
                 <div className="p-6">
                   <h3 className="t-h3 group-hover:text-signal">
@@ -82,8 +84,8 @@ export default async function LocationPage({ params }: { params: Promise<{ locat
 
       <section className="bg-paper pt-[var(--section-y)]">
         <div className="container-x">
-          <h2 className="muted font-sans text-sm font-medium">Other service areas</h2>
-          <ul className="mt-4 flex flex-wrap gap-3">
+          <h2 className="muted text-center font-sans text-sm font-medium md:text-left">Other service areas</h2>
+          <ul className="mt-4 flex flex-wrap justify-center gap-3 md:justify-start">
             {locations
               .filter((o) => o.slug !== l.slug)
               .map((o) => (

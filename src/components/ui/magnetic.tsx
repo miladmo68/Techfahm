@@ -4,7 +4,7 @@ import { m, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useRef, type ReactNode } from "react";
 
 /** Pulls its child gently toward the pointer (fine pointers only). */
-export function Magnetic({ children, strength = 0.35 }: { children: ReactNode; strength?: number }) {
+export function Magnetic({ children, strength = 0.35, className }: { children: ReactNode; strength?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const x = useSpring(useMotionValue(0), { stiffness: 260, damping: 18, mass: 0.4 });
@@ -22,7 +22,7 @@ export function Magnetic({ children, strength = 0.35 }: { children: ReactNode; s
   }
 
   return (
-    <m.div ref={ref} style={{ x, y }} onPointerMove={onMove} onPointerLeave={reset} className="inline-flex">
+    <m.div ref={ref} style={{ x, y }} onPointerMove={onMove} onPointerLeave={reset} className={className ?? "inline-flex"}>
       {children}
     </m.div>
   );

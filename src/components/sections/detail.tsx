@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { Photo } from "@/components/ui/photo";
-import { Reveal, RevealLines, ParallaxFrame } from "@/components/ui/motion";
+import { Reveal, RevealLines, ParallaxFrame, ZoomIn } from "@/components/ui/motion";
 import { services } from "@/content/services";
 
 export function IntroBlock({ heading, paragraphs, aside }: { heading: string[]; paragraphs: string[]; aside?: React.ReactNode }) {
   return (
     <section className="section bg-paper">
       <div className="container-x grid gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-7">
+        <div className="text-center lg:col-span-7 lg:text-left">
           <RevealLines className="t-h2" lines={heading} />
-          <Reveal className="prose-x muted t-lead mt-8">
+          <Reveal className="prose-x muted t-lead mx-auto mt-8 lg:mx-0">
             {paragraphs.map((p) => (
               <p key={p.slice(0, 20)}>{p}</p>
             ))}
@@ -43,11 +43,11 @@ export function Benefits({ heading, items }: { heading: string[]; items: { title
   return (
     <section className="section on-dark relative overflow-hidden">
       <div className="container-x">
-        <RevealLines className="t-h2 max-w-3xl text-white" lines={heading} />
+        <RevealLines className="t-h2 mx-auto max-w-3xl text-center text-white md:mx-0 md:text-left" lines={heading} />
         <div className="mt-14 grid gap-px overflow-hidden rounded-[1.75rem] bg-white/10 md:grid-cols-3">
           {items.map((b, i) => (
-            <Reveal key={b.title} delay={i * 0.08} className="bg-ink p-7 sm:p-9">
-              <span aria-hidden className="block h-0.5 w-10 bg-signal" />
+            <Reveal key={b.title} delay={i * 0.08} className="bg-ink p-7 text-center sm:p-9 md:text-left">
+              <span aria-hidden className="mx-auto block h-0.5 w-10 bg-signal md:mx-0" />
               <h3 className="t-h3 mt-8 text-white">{b.title}</h3>
               <p className="muted mt-3">{b.body}</p>
             </Reveal>
@@ -63,7 +63,7 @@ export function RelatedServices({ slugs, title = "Related services" }: { slugs: 
   return (
     <section className="section bg-mist">
       <div className="container-x">
-        <h2 className="t-h2">{title}</h2>
+        <h2 className="t-h2 text-center md:text-left">{title}</h2>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((s) => (
             <Link
@@ -72,13 +72,15 @@ export function RelatedServices({ slugs, title = "Related services" }: { slugs: 
               className="group overflow-hidden rounded-[1.5rem] bg-white transition-shadow duration-500 hover:shadow-[0_24px_60px_-30px_rgb(10_22_40/0.45)]"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
-                <Photo
-                  name={s.image}
-                  alt={s.imageAlt}
-                  fill
-                  sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
-                />
+                <ZoomIn>
+                  <Photo
+                    name={s.image}
+                    alt={s.imageAlt}
+                    fill
+                    sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
+                  />
+                </ZoomIn>
               </div>
               <div className="p-6">
                 <h3 className="t-h3 group-hover:text-signal">{s.title}</h3>

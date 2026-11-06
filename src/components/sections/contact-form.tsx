@@ -141,9 +141,11 @@ export function ContactForm() {
               <textarea {...register("message")} rows={5} className={cn(input(!!errors.message), "h-auto resize-y py-3")} />
             </Field>
             <input type="text" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" {...register("botcheck")} />
-            <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-              <p className="muted text-sm">Or call us at {site.phone}.</p>
-              <Button type="submit" size="lg" disabled={state === "sending"}>
+            <div className="flex flex-col-reverse gap-4 text-center sm:col-span-2 sm:flex-row sm:items-center sm:justify-between sm:text-left">
+              <p className="muted text-sm">
+                Or call us at <a href={site.phoneHref} className="text-ink underline decoration-signal underline-offset-4">{site.phone}</a>.
+              </p>
+              <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={state === "sending"}>
                 {state === "sending" ? "Sending…" : "Send message"}
               </Button>
             </div>

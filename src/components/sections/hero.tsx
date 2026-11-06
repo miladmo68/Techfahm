@@ -55,8 +55,10 @@ export function Hero() {
       </m.div>
 
       {/* Copy */}
-      <div className="container-x relative mt-auto pb-10 pt-[54svh] md:pt-[60svh] lg:my-auto lg:pb-0 lg:pt-[var(--header-h)]">
-        <div className="max-w-[40rem] lg:max-w-[52rem]">
+      <div className="container-x relative mt-auto pb-10 pt-[50svh] text-center md:pt-[58svh] lg:my-auto lg:pb-0 lg:pt-[var(--header-h)] lg:text-left">
+        {/* Mobile / tablet version of the status panel */}
+        <MobileStatus alert={alert} />
+        <div className="mx-auto max-w-[40rem] lg:mx-0 lg:max-w-[52rem]">
           <RevealLines
             as="h1"
             immediate
@@ -68,7 +70,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: EASE, delay: 0.55 }}
-            className="t-lead muted mt-6 max-w-[34rem]"
+            className="t-lead muted mx-auto mt-6 max-w-[34rem] lg:mx-0"
           >
             Techfahm is a managed IT partner for businesses across the GTA, Hamilton and Waterloo. We monitor, secure
             and support your systems, so your team can focus on its work.
@@ -77,14 +79,14 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: EASE, delay: 0.7 }}
-            className="mt-8 flex flex-wrap items-center gap-3"
+            className="mx-auto mt-8 flex max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center lg:justify-start"
           >
-            <Magnetic>
-              <Button asChild size="lg">
+            <Magnetic className="flex sm:inline-flex">
+              <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/contact/">Book a free consultation</Link>
               </Button>
             </Magnetic>
-            <Button asChild size="lg" variant="outline" className="text-white">
+            <Button asChild size="lg" variant="outline" className="w-full text-white sm:w-auto">
               <Link href="/services/">See our services</Link>
             </Button>
           </m.div>
@@ -143,5 +145,40 @@ export function Hero() {
 
       <p className="sr-only">Serving {site.regions.join(", ")}.</p>
     </section>
+  );
+}
+
+function MobileStatus({ alert }: { alert: AlertState }) {
+  const st = alert.stage;
+  const label =
+    st === "ok" ? "All regions healthy" : st === "alert" ? `Issue found · ${REGION_NAMES[alert.region]}` : `Resolving · ${REGION_NAMES[alert.region]}`;
+  return (
+    <div className="mb-6 flex justify-center lg:hidden" aria-hidden>
+      <div className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-deep/70 py-2 pl-3 pr-4 text-xs backdrop-blur-xl sm:text-sm">
+        <span className="relative flex size-2">
+          <span
+            className={cn(
+              "absolute inset-0 animate-ping rounded-full opacity-60",
+              st === "ok" ? "bg-pulse" : st === "alert" ? "bg-signal" : "bg-amber-400",
+            )}
+          />
+          <span className={cn("relative size-2 rounded-full", st === "ok" ? "bg-pulse" : st === "alert" ? "bg-signal" : "bg-amber-400")} />
+        </span>
+        <span className="font-medium text-white/85">Network status</span>
+        <span className="h-3 w-px bg-white/15" />
+        <AnimatePresence mode="wait">
+          <m.span
+            key={label}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.3, ease: EASE }}
+            className="text-white/60"
+          >
+            {label}
+          </m.span>
+        </AnimatePresence>
+      </div>
+    </div>
   );
 }

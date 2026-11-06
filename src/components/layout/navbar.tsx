@@ -27,8 +27,7 @@ const plain = [
   { label: "Contact", href: "/contact/" },
 ];
 
-/** Pages whose top section is dark — the bar starts in light-on-dark mode there. */
-const darkTop = (p: string) => p === "/" || p.startsWith("/services") || p.startsWith("/industry") || p.startsWith("/partners") || p.startsWith("/our-team") || p.startsWith("/contact");
+/** Every page opens with a dark hero, so the bar starts light-on-dark until you scroll. */
 
 export function Navbar() {
   const pathname = usePathname();
@@ -50,7 +49,7 @@ export function Navbar() {
     setOpen(null);
   }, [pathname]);
 
-  const onDark = darkTop(pathname) && !scrolled;
+  const onDark = !scrolled;
 
   return (
     <>

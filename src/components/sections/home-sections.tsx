@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/magnetic";
-import { ParallaxFrame, Reveal, RevealLines, ScrubText, TextLink } from "@/components/ui/motion";
+import { ParallaxFrame, Reveal, RevealLines, ScrubText, TextLink, ZoomIn } from "@/components/ui/motion";
 import { Photo } from "@/components/ui/photo";
 import { industries } from "@/content/industries";
 import { site } from "@/content/site";
@@ -18,10 +18,10 @@ export function Statement() {
     <section className="section on-dark relative overflow-hidden">
       <div className="container-x">
         <ScrubText
-          className="t-h2 max-w-[22ch] font-display !leading-[1.12] text-white"
+          className="t-h2 mx-auto max-w-[22ch] text-center font-display !leading-[1.12] text-white sm:mx-0 sm:text-left"
           text="Most IT problems are small when they start. We find them early, fix them quietly, and keep the rest of your week free for actual work."
         />
-        <div className="mt-14 grid gap-8 border-t border-white/10 pt-8 sm:grid-cols-3">
+        <div className="mt-14 grid gap-10 border-t border-white/10 pt-10 text-center sm:grid-cols-3 sm:gap-8 sm:pt-8 sm:text-left">
           {[
             { k: "6", v: "core IT services under one roof" },
             { k: "3", v: "Ontario regions served" },
@@ -29,7 +29,7 @@ export function Statement() {
           ].map((s) => (
             <Reveal key={s.v}>
               <p className="font-display text-5xl font-semibold tracking-tight text-white md:text-6xl">{s.k}</p>
-              <p className="muted mt-2 max-w-[16rem]">{s.v}</p>
+              <p className="muted mx-auto mt-2 max-w-[16rem] sm:mx-0">{s.v}</p>
             </Reveal>
           ))}
         </div>
@@ -60,8 +60,8 @@ export function WhyUs() {
       <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-6">
           <div className="lg:sticky lg:top-28">
-            <RevealLines className="t-h2" lines={["A partner that knows", "your systems by name."]} />
-            <p className="muted t-lead mt-6 max-w-lg">
+            <RevealLines className="t-h2 text-center lg:text-left" lines={["A partner that knows", "your systems by name."]} />
+            <p className="muted t-lead mx-auto mt-6 max-w-lg text-center lg:mx-0 lg:text-left">
               You work with a team that learns your setup, not a call centre reading from a script.
             </p>
             <ParallaxFrame className="mt-10 aspect-[4/3] rounded-[1.75rem]">
@@ -72,9 +72,10 @@ export function WhyUs() {
         <ol className="lg:col-span-6 lg:pt-40">
           {pillars.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.05}>
-              <li className="border-t border-ink/10 py-10 first:border-t-0 lg:first:border-t lg:py-14">
+              <li className="border-t border-ink/10 py-10 text-center first:border-t-0 lg:py-14 lg:text-left lg:first:border-t">
+                <span aria-hidden className="mx-auto mb-5 block h-0.5 w-8 bg-signal lg:hidden" />
                 <h3 className="t-h3 text-ink">{p.title}</h3>
-                <p className="muted mt-3 max-w-md text-[1.05rem]">{p.body}</p>
+                <p className="muted mx-auto mt-3 max-w-md text-[1.05rem] lg:mx-0">{p.body}</p>
               </li>
             </Reveal>
           ))}
@@ -101,9 +102,9 @@ export function Process() {
   return (
     <section className="section bg-mist">
       <div className="container-x grid gap-12 md:grid-cols-12">
-        <div className="md:col-span-5">
+        <div className="text-center md:col-span-5 md:text-left">
           <RevealLines className="t-h2" lines={["Getting started", "takes four steps."]} />
-          <p className="muted t-lead mt-6 max-w-md">Nothing changes in your systems until you&apos;ve seen and approved the plan.</p>
+          <p className="muted t-lead mx-auto mt-6 max-w-md md:mx-0">Nothing changes in your systems until you&apos;ve seen and approved the plan.</p>
         </div>
         <ol ref={ref} className="relative md:col-span-7">
           <div aria-hidden className="absolute bottom-3 left-[1.15rem] top-3 w-px bg-ink/10" />
@@ -130,7 +131,7 @@ export function Industries() {
   return (
     <section className="section bg-paper">
       <div className="container-x">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div className="flex flex-col items-center justify-between gap-6 text-center md:flex-row md:items-end md:text-left">
           <RevealLines className="t-h2" lines={["Built for sectors where", "downtime isn't an option."]} />
           <TextLink href="/industry/" className="text-signal">
             All industries
@@ -143,13 +144,15 @@ export function Industries() {
                 href={`/industry/${ind.slug}/`}
                 className="group relative block aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-ink text-white sm:aspect-[5/4] md:aspect-[4/5] lg:aspect-[5/4]"
               >
-                <Photo
-                  name={ind.image}
-                  alt={ind.imageAlt}
-                  fill
-                  sizes="(min-width:768px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-[1.4s] ease-out-expo group-hover:scale-[1.06]"
-                />
+                <ZoomIn>
+                  <Photo
+                    name={ind.image}
+                    alt={ind.imageAlt}
+                    fill
+                    sizes="(min-width:768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-[1.4s] ease-out-expo group-hover:scale-[1.06]"
+                  />
+                </ZoomIn>
                 <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                   <h3 className="t-h2 text-white">{ind.title}</h3>
@@ -173,9 +176,9 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
   return (
     <section className="section bg-paper">
       <div className="container-x grid gap-10 md:grid-cols-12">
-        <div className="md:col-span-5">
+        <div className="text-center md:col-span-5 md:text-left">
           <RevealLines className="t-h2" lines={["Questions we", "hear most often."]} />
-          <p className="muted mt-6 max-w-sm">
+          <p className="muted mx-auto mt-6 max-w-sm md:mx-0">
             Something else on your mind? Call{" "}
             <a className="text-ink underline decoration-signal underline-offset-4" href={site.phoneHref}>
               {site.phone}
@@ -227,13 +230,13 @@ export function Cta({ title = ["Let's make IT the part", "of your business you",
             <p className="muted t-lead mx-auto mt-6 max-w-xl">
               Book a free consultation. We&apos;ll look at your current setup and tell you honestly what we&apos;d change.
             </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Magnetic>
-                <Button asChild size="lg">
+            <div className="mx-auto mt-10 flex max-w-sm flex-col items-stretch justify-center gap-3 sm:max-w-none sm:flex-row sm:items-center">
+              <Magnetic className="flex sm:inline-flex">
+                <Button asChild size="lg" className="w-full sm:w-auto">
                   <Link href="/contact/">Book a free consultation</Link>
                 </Button>
               </Magnetic>
-              <Button asChild size="lg" variant="outline" className="text-white">
+              <Button asChild size="lg" variant="outline" className="w-full text-white sm:w-auto">
                 <a href={site.phoneHref}>Call {site.phone}</a>
               </Button>
             </div>
@@ -265,7 +268,7 @@ export function PageHero({
       <div aria-hidden className="absolute -right-1/4 -top-1/3 aspect-square w-[70vw] rounded-full bg-[radial-gradient(circle,rgb(228_28_56/0.16),transparent_60%)]" />
       <div className="container-x relative">
         <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-2 text-sm text-white/55">
+          <ol className="flex flex-wrap items-center justify-center gap-2 text-sm text-white/55 lg:justify-start">
             <li>
               <Link href="/" className="hover:text-white">Home</Link>
             </li>
@@ -282,13 +285,13 @@ export function PageHero({
           </ol>
         </nav>
         <div className={cn("mt-8 grid gap-10", image && "lg:grid-cols-12 lg:items-end")}>
-          <div className={cn(image && "lg:col-span-7")}>
+          <div className={cn("text-center lg:text-left", image && "lg:col-span-7")}>
             <RevealLines as="h1" immediate className="t-h1 text-white" lines={title} />
             <m.p
               initial={reduce ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.35 }}
-              className="t-lead muted mt-6 max-w-2xl"
+              className="t-lead muted mx-auto mt-6 max-w-2xl lg:mx-0"
             >
               {lead}
             </m.p>
