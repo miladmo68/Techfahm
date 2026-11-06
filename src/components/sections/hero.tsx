@@ -32,7 +32,7 @@ export function Hero() {
       {/* Map */}
       <m.div
         style={{ y: mapY, opacity: mapOpacity }}
-        className="absolute inset-x-0 top-[calc(var(--header-h)+0.5rem)] h-[46svh] md:h-[54svh] max-lg:[@media(max-height:740px)]:h-[34svh] lg:inset-y-0 lg:left-[44%] lg:right-0 lg:top-0 lg:h-auto"
+        className="absolute inset-x-0 top-[calc(var(--header-h)+0.5rem)] h-[36svh] md:h-[50svh] max-lg:[@media(min-height:701px)_and_(max-height:760px)]:h-[30svh] max-lg:[@media(max-height:700px)]:h-[23svh] lg:inset-y-0 lg:left-[44%] lg:right-0 lg:top-0 lg:h-auto"
       >
         <div className="tf-fade-scale relative h-full w-full" style={{ "--d": "0.2s" } as React.CSSProperties}>
           <NetworkMap onAlert={onAlert} className="absolute inset-0 h-full w-full" />
@@ -40,7 +40,7 @@ export function Hero() {
             <span
               key={i}
               className={cn(
-                "absolute -translate-x-1/2 translate-y-5 whitespace-nowrap rounded-full px-2.5 py-1 text-[0.72rem] font-medium backdrop-blur transition-colors duration-500 sm:text-xs",
+                "absolute -translate-x-1/2 translate-y-5 whitespace-nowrap rounded-full max-lg:[@media(max-height:700px)]:hidden px-2.5 py-1 text-[0.72rem] font-medium backdrop-blur transition-colors duration-500 sm:text-xs",
                 alert.stage !== "ok" && alert.region === i ? "bg-signal/20 text-white" : "bg-white/5 text-white/70",
               )}
               style={{ left: `${p.x * 100}%`, top: `${p.y * 100}%` }}
@@ -52,7 +52,7 @@ export function Hero() {
       </m.div>
 
       {/* Copy */}
-      <div className="container-x relative mt-auto pb-10 pt-[50svh] text-center md:pt-[58svh] max-lg:[@media(max-height:740px)]:pt-[38svh] lg:my-auto lg:pb-0 lg:pt-[var(--header-h)] lg:text-left">
+      <div className="container-x relative mt-auto pb-8 pt-[38svh] text-center md:pt-[54svh] max-lg:[@media(min-height:701px)_and_(max-height:760px)]:pt-[31svh] max-lg:[@media(max-height:700px)]:pt-[calc(var(--header-h)+1rem+23svh)] lg:my-auto lg:pb-0 lg:pt-[var(--header-h)] lg:text-left">
         {/* Mobile / tablet version of the status panel */}
         <MobileStatus alert={alert} />
         <div className="mx-auto max-w-[40rem] lg:mx-0 lg:max-w-[52rem]">
@@ -63,11 +63,11 @@ export function Hero() {
             className="t-hero text-white"
             lines={["IT that keeps", "your business", "running."]}
           />
-          <p className="tf-fade-up t-lead muted mx-auto mt-6 max-w-[34rem] lg:mx-0" style={{ "--d": "0.55s" } as React.CSSProperties}>
+          <p className="tf-fade-up t-lead muted mx-auto mt-4 max-w-[34rem] sm:mt-6 lg:mx-0 max-lg:[@media(max-height:620px)]:text-[0.98rem]" style={{ "--d": "0.55s" } as React.CSSProperties}>
             Techfahm is a managed IT partner for businesses across the GTA, Hamilton and Waterloo. We monitor, secure
             and support your systems, so your team can focus on its work.
           </p>
-          <div style={{ "--d": "0.7s" } as React.CSSProperties} className="tf-fade-up mx-auto mt-8 flex max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center lg:justify-start">
+          <div style={{ "--d": "0.7s" } as React.CSSProperties} className="tf-fade-up mx-auto mt-6 flex sm:mt-8 max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center lg:justify-start">
             <Magnetic className="flex sm:inline-flex">
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/contact/">Book a free consultation</Link>
@@ -134,7 +134,7 @@ function MobileStatus({ alert }: { alert: AlertState }) {
   const label =
     st === "ok" ? "All regions healthy" : st === "alert" ? `Issue found · ${REGION_NAMES[alert.region]}` : `Resolving · ${REGION_NAMES[alert.region]}`;
   return (
-    <div className="mb-6 flex justify-center lg:hidden" aria-hidden>
+    <div className="mb-4 flex justify-center sm:mb-6 lg:hidden max-lg:[@media(max-height:700px)]:hidden" aria-hidden>
       <div className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-deep/70 py-2 pl-3 pr-4 text-xs backdrop-blur-xl sm:text-sm">
         <span className="relative flex size-2">
           <span
