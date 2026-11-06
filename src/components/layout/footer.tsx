@@ -12,16 +12,9 @@ const social = [
 
 export function Footer() {
   return (
-    <footer className="on-dark relative isolate overflow-hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-      {/* Big wordmark as a centred background for the whole footer */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 flex select-none items-center justify-center overflow-hidden">
-        <p className="whitespace-nowrap font-display text-[24vw] font-bold leading-none tracking-[-0.06em] text-white/[0.035]">
-          techfahm
-        </p>
-      </div>
-
-      <div className="container-x grid gap-12 pb-12 pt-20 md:grid-cols-12">
-        <div className="md:col-span-4">
+    <footer className="on-dark relative overflow-hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+      <div className="container-x grid grid-cols-2 gap-x-6 gap-y-10 pb-10 pt-14 md:grid-cols-12 md:gap-12 md:pb-12 md:pt-16">
+        <div className="col-span-2 md:col-span-4">
           <Logo tone="light" />
           <p className="muted mt-5 max-w-xs text-[0.95rem]">
             Managed IT services for businesses across the Greater Toronto Area, Hamilton &amp; Niagara and the Waterloo Region.
@@ -47,7 +40,7 @@ export function Footer() {
           </ul>
         </div>
 
-        <FooterCol title="Services" className="md:col-span-3" links={services.map((s) => ({ label: s.title, href: `/services/${s.slug}/` }))} />
+        <FooterCol title="Services" className="col-span-2 md:col-span-3" links={services.map((s) => ({ label: s.title, href: `/services/${s.slug}/` }))} />
         <FooterCol
           title="Industries"
           className="md:col-span-2"
@@ -66,7 +59,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container-x flex flex-col gap-2 py-6 text-sm text-white/55 sm:flex-row sm:justify-between">
+        <div className="container-x flex flex-col gap-1.5 py-5 text-sm text-white/55 sm:flex-row sm:justify-between">
           <p>© {new Date().getFullYear()} Techfahm Systems Inc. All rights reserved.</p>
           <p>
             Designed &amp; developed by{" "}
@@ -89,7 +82,7 @@ function FooterCol({ title, links, className }: { title: string; links: { label:
   return (
     <div className={className}>
       <h2 className="font-sans text-sm font-medium text-white/50">{title}</h2>
-      <ul className="mt-4 space-y-1">
+      <ul className="mt-3 space-y-0.5">
         {links.map((l) => (
           <li key={l.href}>
             <Link href={l.href} className="inline-block py-1.5 text-[0.95rem] transition-colors hover:text-signal">

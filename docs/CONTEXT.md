@@ -71,3 +71,4 @@ Per-page title/description/canonical/OG/Twitter · Organization + ProfessionalSe
 ## Change log
 - 2026-11-06 — Project created. Full site, motion system, SEO, image pipeline, cPanel `.htaccess`, docs. Placeholders used for images until `npm run images` runs with internet access.
 - 2026-11-06 — Footer: big "techfahm" wordmark is now a centred background behind the whole footer (no extra space below). Bottom row credits "Designed & developed by Milink" → https://milink.ca.
+- 2026-11-06 — Footer: removed the background wordmark entirely; tighter padding (pt-14/pb-10 mobile, pt-16/pb-12 desktop, bottom row py-5); on mobile Industries and Company sit side by side.
