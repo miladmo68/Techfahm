@@ -7,7 +7,6 @@ export const metadata: Metadata = pageMeta({
   description:
     "Techfahm delivers managed IT for Ontario healthcare providers, manufacturers and distributors, with compliance, security and supply-chain systems built in.",
   path: "/industry/",
-  image: "manufacturing",
 });
 
 export default function IndustryPage() {

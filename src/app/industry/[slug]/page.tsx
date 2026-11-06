@@ -15,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const s = getIndustry((await params).slug);
   if (!s) return {};
-  return pageMeta({ title: s.metaTitle, description: s.metaDescription, path: `/industry/${s.slug}/`, image: s.image });
+  return pageMeta({ title: s.metaTitle, description: s.metaDescription, path: `/industry/${s.slug}/` });
 }
 
 export default async function IndustryDetail({ params }: { params: Promise<{ slug: string }> }) {

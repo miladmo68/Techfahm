@@ -10,6 +10,10 @@ import { Cursor } from "@/components/layout/cursor";
 import { ScrollProgress } from "@/components/ui/motion";
 import { site } from "@/content/site";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
+import { asset, BASE_PATH } from "@/lib/base-path";
+
+/** Preview builds (GitHub Pages) must not compete with techfahm.com in Google */
+const isPreview = Boolean(BASE_PATH) || process.env.NEXT_PUBLIC_NOINDEX === "1";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -24,10 +28,27 @@ export const metadata: Metadata = {
   publisher: site.name,
   formatDetection: { telephone: true, email: true },
   icons: {
-    icon: [{ url: "/favicon.png", sizes: "48x48", type: "image/png" }, { url: "/icon-192.png", sizes: "192x192" }],
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: asset("/favicon.png"), sizes: "48x48", type: "image/png" },
+      { url: asset("/icon-192.png"), sizes: "192x192", type: "image/png" },
+    ],
+    apple: asset("/apple-touch-icon.png"),
   },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
+  robots: isPreview
+    ? { index: false, follow: false }
+    : {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+      },
+  // Paste the codes from Google Search Console / Bing Webmaster Tools into .env.local
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
+  },
+  other: { "geo.region": "CA-ON", "geo.placename": "Toronto" },
   category: "technology",
 };
 

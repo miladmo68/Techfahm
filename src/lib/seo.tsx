@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
 import { site } from "@/content/site";
+import { services } from "@/content/services";
 
 export function pageMeta({
   title,
   description,
   path,
-  image = "share",
 }: {
   title: string;
   description: string;
   path: string;
-  image?: string;
 }): Metadata {
+  // OG/Twitter images come from the opengraph-image.tsx file next to each page
   const url = `${site.url}${path}`;
-  const ogImage = `/images/${image}-1200.webp`;
   return {
     title,
     description,
@@ -25,9 +24,8 @@ export function pageMeta({
       siteName: site.shortName,
       locale: "en_CA",
       type: "website",
-      images: [{ url: ogImage, width: 1200, alt: title }],
     },
-    twitter: { card: "summary_large_image", title, description, images: [ogImage], site: "@techfahm" },
+    twitter: { card: "summary_large_image", title, description, site: "@techfahm" },
   };
 }
 
@@ -49,7 +47,7 @@ export const organizationLd = {
   name: site.name,
   alternateName: site.shortName,
   url: site.url,
-  logo: `${site.url}/images/logo.png`,
+  logo: { "@type": "ImageObject", url: `${site.url}/images/logo.png`, width: 1024, height: 259 },
   image: `${site.url}/images/hero-1200.webp`,
   email: site.email,
   telephone: "+1-905-277-5653",
@@ -61,6 +59,24 @@ export const organizationLd = {
   ],
   address: { "@type": "PostalAddress", addressRegion: "ON", addressCountry: "CA" },
   sameAs: Object.values(site.social),
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      telephone: "+1-905-277-5653",
+      email: site.email,
+      areaServed: "CA-ON",
+      availableLanguage: ["English"],
+    },
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Managed IT services",
+    itemListElement: services.map((s) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: s.title, url: `${site.url}/services/${s.slug}/` },
+    })),
+  },
   knowsAbout: [
     "Managed IT services",
     "Network management",

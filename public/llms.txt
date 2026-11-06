@@ -1,0 +1,25 @@
+# Techfahm Systems Inc.
+
+> Techfahm is a managed IT services provider (MSP) for small and medium-sized businesses in Ontario, Canada, serving the Greater Toronto Area, Hamilton & Niagara, and the Waterloo Region. Contact: info@techfahm.com, +1 (905) 277-5653. Every engagement starts with a free consultation.
+
+## Services
+- [Network Management](https://techfahm.com/services/network-management/): monitoring of uptime, traffic and network health; administration, maintenance and security fixes.
+- [Managed IT Support](https://techfahm.com/services/managed-it-support/): design, operation and maintenance of critical IT systems and help for staff.
+- [Cloud Computing](https://techfahm.com/services/cloud-computing/): cloud storage, databases, analytics, software and networking.
+- [Cybersecurity](https://techfahm.com/services/cybersecurity/): protection for SMBs against internal and external threats, multi-tier access control.
+- [Backup & Disaster Recovery](https://techfahm.com/services/backup-and-disaster-recovery/): backups of essential data and a recovery action plan.
+- [IT Consulting](https://techfahm.com/services/it-consulting/): personalised, scalable IT advice aligned with business goals.
+
+## Industries
+- [Health](https://techfahm.com/industry/health/): compliance support for PHIPA, PIPEDA and HIPAA; EMR/EHR maintenance; PS Suite, Xolomon, NextGen Healthcare, Kareo Clinical.
+- [Manufacturing & Distribution](https://techfahm.com/industry/manufacturing-and-distribution/): supply chain IT; Salesforce, Microsoft Dynamics 365, SAP.
+
+## Service areas
+- [Toronto and the GTA](https://techfahm.com/managed-it-services-toronto/)
+- [Hamilton & Niagara](https://techfahm.com/managed-it-services-hamilton/)
+- [Waterloo Region](https://techfahm.com/managed-it-services-waterloo/)
+
+## Company
+- [Technology partners](https://techfahm.com/partners/): Microsoft, Cisco, Fortinet, Acronis
+- [Our team](https://techfahm.com/our-team/)
+- [Contact / free consultation](https://techfahm.com/contact/)

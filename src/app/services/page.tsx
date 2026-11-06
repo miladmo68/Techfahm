@@ -11,7 +11,6 @@ export const metadata: Metadata = pageMeta({
   description:
     "Explore Techfahm's managed IT services for Toronto, Hamilton and Waterloo businesses: network management, IT support, cloud, cybersecurity, backup and IT consulting.",
   path: "/services/",
-  image: "network",
 });
 
 export default function ServicesPage() {

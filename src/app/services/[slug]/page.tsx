@@ -14,7 +14,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const s = getService((await params).slug);
   if (!s) return {};
-  return pageMeta({ title: s.metaTitle, description: s.metaDescription, path: `/services/${s.slug}/`, image: s.image });
+  return pageMeta({ title: s.metaTitle, description: s.metaDescription, path: `/services/${s.slug}/` });
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {

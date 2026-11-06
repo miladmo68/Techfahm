@@ -220,7 +220,7 @@ export function Cta({ title = ["Let's make IT the part", "of your business you",
         style={{ borderTopLeftRadius: radius, borderTopRightRadius: radius, marginInline: inset }}
         className="on-dark grain relative overflow-hidden"
       >
-        <div aria-hidden className="absolute inset-x-0 -bottom-1/2 mx-auto aspect-square w-[120%] max-w-[1400px] rounded-full bg-[radial-gradient(circle,rgb(227_38_47/0.28),transparent_60%)]" />
+        <div aria-hidden className="absolute inset-x-0 -bottom-1/2 mx-auto aspect-square w-[120%] max-w-[1400px] rounded-full bg-[radial-gradient(circle,rgb(228_28_56/0.28),transparent_60%)]" />
         <div className="container-x relative py-24 text-center md:py-36">
           <RevealLines className="t-h1 mx-auto max-w-4xl text-white" lines={title} />
           <Reveal delay={0.2}>
@@ -262,7 +262,7 @@ export function PageHero({
   return (
     <section className="on-dark grain relative overflow-hidden pb-14 pt-[calc(var(--header-h)+3rem)] md:pb-20 md:pt-[calc(var(--header-h)+5rem)]">
       <div aria-hidden className="grid-lines absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
-      <div aria-hidden className="absolute -right-1/4 -top-1/3 aspect-square w-[70vw] rounded-full bg-[radial-gradient(circle,rgb(227_38_47/0.16),transparent_60%)]" />
+      <div aria-hidden className="absolute -right-1/4 -top-1/3 aspect-square w-[70vw] rounded-full bg-[radial-gradient(circle,rgb(228_28_56/0.16),transparent_60%)]" />
       <div className="container-x relative">
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-2 text-sm text-white/55">

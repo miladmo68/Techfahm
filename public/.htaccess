@@ -1,33 +1,86 @@
+# ─────────────────────────────────────────────────────────────
 # Techfahm — static Next.js export on Apache / cPanel
-Options -Indexes
+# Security headers, HTTPS, caching, old WordPress clean-up
+# ─────────────────────────────────────────────────────────────
+Options -Indexes -MultiViews
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
+ServerSignature Off
+FileETag None
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Force HTTPS
+  # 1) Force HTTPS
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Force non-www (change to www if preferred)
+  # 2) Force non-www
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
-  # Old WordPress URLs
-  RewriteRule ^feed/?$ / [L,R=301]
-  RewriteRule ^wp-admin/?.*$ / [L,R=301]
-  RewriteRule ^wp-login\.php$ / [L,R=301]
+  # 3) Block hidden files and folders (.git, .env …) except /.well-known/
+  RewriteRule (^|/)\.(?!well-known/) - [F,L]
 
-  # Add trailing slash to folder-style URLs
+  # 4) Block backups, source files and config files
+  RewriteRule \.(bak|backup|old|orig|sql|sqlite|log|ini|sh|env|ts|tsx|map|lock|yml|yaml|md|zip|tar|gz)$ - [F,NC,L]
+
+  # 5) Old WordPress URLs — gone for good (helps Google drop them and stops bots)
+  RewriteRule ^(wp-admin|wp-includes|wp-content|wp-json)(/.*)?$ - [G,NC,L]
+  RewriteRule ^(wp-login|xmlrpc|wp-cron|wp-config|wp-signup|wp-trackback)\.php$ - [G,NC,L]
+  RewriteRule ^(feed|comments/feed)/?$ / [R=301,L]
+  RewriteRule ^index\.php$ / [R=301,L]
+  RewriteRule ^(author|category|tag)/.*$ / [R=301,L]
+  RewriteCond %{QUERY_STRING} (^|&)p=\d+ [NC]
+  RewriteRule ^$ /? [R=301,L]
+
+  # 6) Block common attack patterns in the query string
+  RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
+  RewriteCond %{QUERY_STRING} (\.\./|\.\.%2F) [NC,OR]
+  RewriteCond %{QUERY_STRING} (union.*select|concat\(|base64_) [NC]
+  RewriteRule .* - [F,L]
+
+  # 7) Only allow normal methods on a static site
+  RewriteCond %{REQUEST_METHOD} !^(GET|HEAD|OPTIONS)$
+  RewriteRule .* - [F,L]
+
+  # 8) Add the trailing slash to folder-style URLs
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,6}|/)$
   RewriteRule ^(.*)$ /$1/ [L,R=301]
 </IfModule>
 
+<IfModule mod_headers.c>
+  Header unset X-Powered-By
+  Header always unset X-Powered-By
+
+  # HTTPS only for one year (add "; preload" only after testing every subdomain)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Content Security Policy — only our own files, plus Web3Forms for the contact form
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://api.web3forms.com; form-action 'self' https://api.web3forms.com mailto:; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests"
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=(), browsing-topics=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
+
+  # Caching: hashed build files and images forever, HTML always fresh
+  <FilesMatch "\.(js|css|woff2|webp|avif|png|jpg|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt|webmanifest)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml text/plain text/xml application/xml application/manifest+json
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json application/xml application/manifest+json image/svg+xml
 </IfModule>
 
 <IfModule mod_expires.c>
@@ -40,19 +93,15 @@ ErrorDocument 404 /404.html
   ExpiresByType text/css "access plus 1 year"
 </IfModule>
 
-<IfModule mod_headers.c>
-  <FilesMatch "\.(js|css|woff2|webp|png|svg)$">
-    Header set Cache-Control "public, max-age=31536000, immutable"
-  </FilesMatch>
-  <FilesMatch "\.html$">
-    Header set Cache-Control "public, max-age=0, must-revalidate"
-  </FilesMatch>
-  Header always set X-Content-Type-Options "nosniff"
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set X-Frame-Options "SAMEORIGIN"
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
-</IfModule>
+# Generated social-share images have no file extension
+<FilesMatch "^opengraph-image$">
+  ForceType image/png
+  <IfModule mod_headers.c>
+    Header set Cache-Control "public, max-age=604800"
+  </IfModule>
+</FilesMatch>
 
 AddType application/manifest+json .webmanifest
 AddType image/webp .webp
 AddType font/woff2 .woff2
+AddDefaultCharset utf-8

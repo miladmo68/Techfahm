@@ -9,7 +9,6 @@ export const metadata: Metadata = pageMeta({
   description:
     "Meet the Techfahm team: vetted IT experts across networking, support, cloud and security, helping Ontario businesses run better technology.",
   path: "/our-team/",
-  image: "team",
 });
 
 const steps = [

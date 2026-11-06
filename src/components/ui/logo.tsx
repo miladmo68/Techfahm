@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { logo } from "@/lib/images";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/base-path";
 
 /**
  * Real Techfahm logo (downloaded by `npm run images`).
@@ -11,7 +12,7 @@ export function Logo({ tone = "dark", className }: { tone?: "dark" | "light"; cl
   if (logo?.source === "real" && logo.width && logo.height) {
     return (
       <Image
-        src="/images/logo.png"
+        src={asset("/images/logo.png")}
         alt="Techfahm"
         width={logo.width}
         height={logo.height}

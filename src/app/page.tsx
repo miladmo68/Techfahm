@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     description:
       "Techfahm is a Toronto managed IT services provider: network management, IT support, cloud, cybersecurity, backup and IT consulting for Ontario businesses. Free consultation.",
     path: "/",
-    image: "hero",
   }),
   title: { absolute: "Managed IT Services in Toronto, Hamilton & Waterloo | Techfahm" },
 };

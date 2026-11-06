@@ -18,6 +18,11 @@ Rebuild https://techfahm.com (WordPress + Slider Revolution) as a premium, mobil
 | Motion | `motion` (LazyMotion + `m`), Lenis smooth scroll, custom canvas network map | Premium feel, small bundle |
 | UI kit | shadcn-style components hand-written (`Button` with cva, Radix Dialog/Accordion) | shadcn CLI not needed |
 | Copy | Rewritten from the old site's content, nothing invented | Honesty |
+| Local SEO | `/managed-it-services-{toronto,hamilton,waterloo}/` from `src/content/locations.ts` (dynamic `[location]` route) | Rank for "IT support + city" searches |
+| Share images | `opengraph-image.tsx` next to every page, rendered by `src/lib/og.tsx` (next/og, Schibsted font, real photo) | Branded previews on LinkedIn, Facebook, X, iMessage |
+| Security | Headers + rules in `public/.htaccess` (CSP, HSTS, 410 for WP paths, method + file blocking), `public/.well-known/security.txt` | Static site on shared Apache |
+| Preview hosting | GitHub Pages via `.github/workflows/pages.yml`, `NEXT_PUBLIC_BASE_PATH=/techfahm`, auto `noindex` | Free live preview without hurting SEO |
+| Brand red | `#E41C38`, sampled from the real logo | Exact match with logo |
 
 ## Design system
 - **Ink** `#0A1628` (dark surfaces), **Deep** `#10213F`, **Mist** `#EEF2F7`, **Paper** `#F8FAFC`, **Steel** `#5D6B82` (secondary text), **Signal** `#E3262F` (Techfahm red — CTAs, alerts, focus only), **Pulse** `#3DDC97` (healthy status in the hero map only).
@@ -52,14 +57,18 @@ public/.htaccess    HTTPS, 404, caching, old WP redirects
 ```
 
 ## SEO checklist (done)
-Per-page title/description/canonical/OG/Twitter · Organization + ProfessionalService + WebSite JSON-LD · Service JSON-LD on every service page · BreadcrumbList on inner pages · FAQPage on home · sitemap.xml · robots.txt · web manifest · one h1 per page · alt text on all photos · same URLs as WordPress.
+Per-page title/description/canonical/OG/Twitter · generated 1200×630 OG image per page · Organization + ProfessionalService (contactPoint, hasOfferCatalog, areaServed) + WebSite JSON-LD · Service JSON-LD on service and location pages · BreadcrumbList on inner pages · FAQPage on home and location pages · sitemap.xml with image entries · robots.txt · llms.txt · humans.txt · web manifest · Google/Bing verification via env · geo meta (CA-ON) · one h1 per page · alt text on all photos · same URLs as WordPress · internal links: footer + contact page → location pages.
+
+## Security checklist (done)
+HTTPS redirect + HSTS · Content-Security-Policy (self + Web3Forms only) · X-Frame-Options DENY / frame-ancestors none · nosniff · Referrer-Policy · Permissions-Policy · COOP/CORP · ServerSignature off · directory listing off · dotfiles/backups/source files blocked · only GET/HEAD/OPTIONS allowed · old WordPress paths (wp-admin, wp-login.php, xmlrpc.php, wp-content…) return 410 · query-string attack patterns blocked · security.txt · contact form: honeypot, 3-second timing check, length limits.
 
 ## Status
 - [x] All pages built, lint + build pass, screenshots checked at 390px and 1440px
-- [ ] Run `npm run images` on a machine with internet (the build environment couldn't reach techfahm.com) → replaces placeholders with real photos + real logo
-- [ ] Check every Pexels photo after download (IDs in `scripts/images.mjs`); swap any that don't fit
+- [x] Real photos + logo downloaded with `npm run images` and committed
+- [ ] Push to GitHub `miladmo68/techfahm` and enable GitHub Pages (Settings → Pages → Source: GitHub Actions)
 - [ ] Add Web3Forms key to `.env.local`, rebuild, send a test message
 - [ ] Lighthouse run on the real-image build
+- [ ] After go-live: verify Google Search Console + Bing, submit sitemap, create/claim the free Google Business Profile
 - [ ] Upload to cPanel (see README)
 
 ## Ideas for later
@@ -72,3 +81,4 @@ Per-page title/description/canonical/OG/Twitter · Organization + ProfessionalSe
 - 2026-11-06 — Project created. Full site, motion system, SEO, image pipeline, cPanel `.htaccess`, docs. Placeholders used for images until `npm run images` runs with internet access.
 - 2026-11-06 — Footer: big "techfahm" wordmark is now a centred background behind the whole footer (no extra space below). Bottom row credits "Designed & developed by Milink" → https://milink.ca.
 - 2026-11-06 — Footer: removed the background wordmark entirely; tighter padding (pt-14/pb-10 mobile, pt-16/pb-12 desktop, bottom row py-5); on mobile Industries and Company sit side by side.
+- 2026-11-06 — SEO + security pass: local landing pages (Toronto/Hamilton/Waterloo), generated OG images for every page, richer JSON-LD, sitemap images, llms.txt, verification env vars, hardened .htaccess (CSP, HSTS, 410 for WP), security.txt, form timing check, brand red set to logo red #E41C38, base-path support + GitHub Pages workflow, README with screenshots.

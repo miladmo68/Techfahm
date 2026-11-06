@@ -3,6 +3,7 @@ import { Logo } from "@/components/ui/logo";
 import { services } from "@/content/services";
 import { industries } from "@/content/industries";
 import { site } from "@/content/site";
+import { locations } from "@/content/locations";
 
 const social = [
   { label: "LinkedIn", href: site.social.linkedin, d: "M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-4.98c0-1.19-.02-2.72-1.66-2.72-1.66 0-1.91 1.3-1.91 2.63V21h-4V9.75Z" },
@@ -17,7 +18,15 @@ export function Footer() {
         <div className="col-span-2 md:col-span-4">
           <Logo tone="light" />
           <p className="muted mt-5 max-w-xs text-[0.95rem]">
-            Managed IT services for businesses across the Greater Toronto Area, Hamilton &amp; Niagara and the Waterloo Region.
+            Managed IT services for businesses across{" "}
+            {locations.map((l, i) => (
+              <span key={l.slug}>
+                <Link href={`/${l.slug}/`} className="underline decoration-white/25 underline-offset-4 transition-colors hover:text-white hover:decoration-signal">
+                  {l.region === "Greater Toronto Area" ? "the Greater Toronto Area" : l.region === "Waterloo Region" ? "the Waterloo Region" : l.region}
+                </Link>
+                {i === locations.length - 2 ? " and " : i < locations.length - 1 ? ", " : "."}
+              </span>
+            ))}
           </p>
           <div className="mt-6 space-y-1.5 text-[0.95rem]">
             <a className="block hover:text-signal" href={site.phoneHref}>{site.phone}</a>

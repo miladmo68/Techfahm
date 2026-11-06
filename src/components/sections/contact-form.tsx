@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, m } from "motion/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -17,19 +17,31 @@ import { EASE, cn } from "@/lib/utils";
  */
 const KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
 
+/** Bots submit instantly; people take a few seconds. Starts on first focus. */
+function createFillTimer() {
+  let start = 0;
+  return {
+    start: () => {
+      if (!start) start = Date.now();
+    },
+    tooFast: () => !start || Date.now() - start < 3000,
+  };
+}
+
 const schema = z.object({
-  name: z.string().min(2, "Enter your name"),
+  name: z.string().trim().min(2, "Enter your name").max(100),
   email: z.email("Enter a valid email address"),
   company: z.string().optional(),
   phone: z.string().optional(),
   topic: z.string().optional(),
-  message: z.string().min(10, "Tell us a little more (10 characters or more)"),
+  message: z.string().min(10, "Tell us a little more (10 characters or more)").max(5000, "Keep it under 5,000 characters"),
   botcheck: z.string().max(0).optional(),
 });
 type Values = z.infer<typeof schema>;
 
 export function ContactForm() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const timer = useMemo(() => createFillTimer(), []);
   const {
     register,
     handleSubmit,
@@ -39,6 +51,10 @@ export function ContactForm() {
 
   async function onSubmit(v: Values) {
     if (v.botcheck) return;
+    if (timer.tooFast()) {
+      setState("error");
+      return;
+    }
     if (!KEY) {
       const body = encodeURIComponent(
         `${v.message}\n\nName: ${v.name}\nCompany: ${v.company ?? ""}\nPhone: ${v.phone ?? ""}\nTopic: ${v.topic ?? ""}`,
@@ -97,6 +113,7 @@ export function ContactForm() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onSubmit={handleSubmit(onSubmit)}
+            onFocus={timer.start}
             noValidate
             className="grid gap-5 rounded-[1.5rem] border border-ink/10 bg-white p-6 sm:grid-cols-2 sm:p-9"
           >

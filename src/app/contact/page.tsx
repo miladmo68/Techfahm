@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/home-sections";
 import { ContactForm } from "@/components/sections/contact-form";
+import Link from "next/link";
 import { site } from "@/content/site";
+import { locations } from "@/content/locations";
 import { JsonLd, breadcrumbLd, pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -36,10 +38,10 @@ export default function ContactPage() {
             <div>
               <h2 className="muted font-sans text-sm font-medium">Service areas</h2>
               <ul className="mt-3 space-y-2 text-lg">
-                {site.regions.map((r) => (
-                  <li key={r} className="flex items-center gap-3">
+                {locations.map((l) => (
+                  <li key={l.slug} className="flex items-center gap-3">
                     <span aria-hidden className="size-2 rounded-full bg-signal" />
-                    {r}
+                    <Link href={`/${l.slug}/`} className="hover:text-signal">{l.region}</Link>
                   </li>
                 ))}
               </ul>

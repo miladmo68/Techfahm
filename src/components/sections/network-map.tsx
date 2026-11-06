@@ -174,7 +174,7 @@ export function NetworkMap({ onAlert, className }: { onAlert?: (s: AlertState) =
           ctx.beginPath();
           ctx.arc(x, y, ringR, 0, Math.PI * 2);
           ctx.strokeStyle = isAlert
-            ? `rgba(227,38,47,${0.65 - pulse * 0.45})`
+            ? `rgba(228,28,56,${0.65 - pulse * 0.45})`
             : `rgba(61,220,151,${0.45 - pulse * 0.35})`;
           ctx.lineWidth = 1.2;
           ctx.stroke();
@@ -184,7 +184,7 @@ export function NetworkMap({ onAlert, className }: { onAlert?: (s: AlertState) =
         ctx.fillStyle = isAlert
           ? alertStage === "resolving"
             ? "#f5a524"
-            : "#e3262f"
+            : "#e41c38"
           : n.hub
             ? "#3ddc97"
             : `rgba(${220 + near * 35},${230 + near * 25},255,${0.55 + near * 0.45})`;

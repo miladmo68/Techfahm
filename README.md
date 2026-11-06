@@ -1,43 +1,78 @@
-# Techfahm.com — Next.js redesign
+# Techfahm.com — website redesign
 
-Static, mobile-first marketing site for Techfahm Systems Inc. Built with Next.js (App Router, static export), TypeScript, Tailwind CSS v4, Motion, Lenis and Radix. Runs on any cPanel host. No Node or PHP needed on the server.
+A fast, mobile-first rebuild of [techfahm.com](https://techfahm.com) (previously WordPress) for **Techfahm Systems Inc.**, a managed IT services provider serving the Greater Toronto Area, Hamilton & Niagara and the Waterloo Region.
 
-> Working on this project with an AI assistant? Tell it: **"Read CLAUDE.md and docs/CONTEXT.md first."**
+**Live preview:** https://miladmo68.github.io/techfahm/  
+**Designed & developed by [Milink](https://milink.ca)**
 
-## 1. First run (on your computer)
+![Homepage hero with the live network map](docs/screenshots/desktop-hero.webp)
+
+## Highlights
+
+- **Static Next.js site.** Exports plain HTML/CSS/JS that runs on any cPanel host, with no Node or PHP on the server.
+- **Signature hero.** A canvas network map of the three service regions, with data packets moving along the links and an alert that gets raised and then resolved.
+- **Motion:** smooth scroll (Lenis), masked headline reveals, sticky stacked service panels, scroll-filled statement, parallax and clip-path image reveals, magnetic buttons, custom cursor, page transitions, and a full-screen mobile menu. Every animation respects `prefers-reduced-motion`.
+- **Mobile-first.** Tested at 390px and 1440px, with no horizontal overflow and 44px tap targets.
+- **SEO:**
+  - per-page titles, descriptions and canonicals
+  - branded Open Graph image for every page
+  - JSON-LD for Organization, Service, FAQPage and BreadcrumbList
+  - sitemap.xml that includes images
+  - robots.txt, `llms.txt`, and local landing pages for Toronto, Hamilton and Waterloo
+  - the same URLs as the old WordPress site
+- **Security** (`.htaccess`): HTTPS + HSTS, strict Content-Security-Policy, clickjacking and MIME-sniffing protection, a locked-down Permissions-Policy, blocked access to dotfiles and backups, old WordPress attack paths returned as 410 Gone, and `security.txt`. The contact form has honeypot and timing checks.
+- **Images.** Every image is downloaded into the project and optimised to WebP at five widths, then served through `next/image` with a custom loader. No hotlinking.
+
+| Services (sticky stack) | Service page |
+|---|---|
+| ![Services](docs/screenshots/desktop-services.webp) | ![Service page](docs/screenshots/desktop-service-page.webp) |
+
+| Mobile hero | Mobile menu | Local landing page |
+|---|---|---|
+| ![Mobile hero](docs/screenshots/mobile-hero.webp) | ![Mobile menu](docs/screenshots/mobile-menu.webp) | ![Toronto page](docs/screenshots/mobile-location.webp) |
+
+| Industries | Generated share image |
+|---|---|
+| ![Industries](docs/screenshots/desktop-industries.webp) | ![OG image](docs/screenshots/og-cybersecurity.webp) |
+
+## Tech stack
+
+Next.js 16 (App Router, static export) · React 19 · TypeScript · Tailwind CSS v4 · Motion · Lenis · Radix UI · React Hook Form + Zod · sharp · Schibsted Grotesk + Geist
+
+## Pages
+
+`/` · `/services/` + 6 service pages · `/industry/` + Health, Manufacturing & Distribution · `/managed-it-services-toronto/` · `/managed-it-services-hamilton/` · `/managed-it-services-waterloo/` · `/partners/` · `/our-team/` · `/contact/` · `404`
+
+## Run it locally
 
 ```bash
 npm install
-npm run images     # downloads every Techfahm photo + free Pexels photos and optimises them
-npm run dev        # open http://localhost:3000
+npm run images     # downloads and optimises all images (already included in the repo)
+npm run dev        # http://localhost:3000
 ```
 
-`npm run images` needs internet. It saves originals in `assets/raw/` and optimised WebP files in `public/images/`, then rewrites `src/lib/image-manifest.json`. Any image it can't download is replaced by a fallback or a placeholder, and it prints which ones. Run it again any time (`npm run images -- --force` re-downloads everything).
+Copy `.env.example` to `.env.local` and fill in what you need:
 
-## 2. Contact form (free)
+| Variable | What it's for |
+|---|---|
+| `NEXT_PUBLIC_WEB3FORMS_KEY` | Free key from [web3forms.com](https://web3forms.com). Without it, the form opens the visitor's email app instead. |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Google Search Console HTML-tag code |
+| `NEXT_PUBLIC_BING_SITE_VERIFICATION` | Bing Webmaster Tools code |
 
-1. Go to https://web3forms.com, enter `info@techfahm.com`, and copy the access key they email you.
-2. Create `.env.local` in the project root:
-   ```
-   NEXT_PUBLIC_WEB3FORMS_KEY=your-key-here
-   ```
-3. Rebuild. Without a key, the form opens the visitor's email app instead.
+## Deploy to cPanel (techfahm.com)
 
-## 3. Build
+1. **Back up the WordPress site** (cPanel → Backup Wizard), then move the old files out of `public_html`. Removing WordPress from the server is the single biggest security improvement.
+2. Run `npm run build`, then `cd out && zip -r ../techfahm-site.zip . && cd ..`
+3. In cPanel → File Manager → `public_html`, upload and extract `techfahm-site.zip`. Turn on *Show Hidden Files* and check that `.htaccess` and `.well-known/` are there.
+4. Check https://techfahm.com, then test the headers at [securityheaders.com](https://securityheaders.com) and the tags at [Google's Rich Results Test](https://search.google.com/test/rich-results).
+5. In [Google Search Console](https://search.google.com/search-console) and [Bing Webmaster Tools](https://www.bing.com/webmasters), verify the site and submit `https://techfahm.com/sitemap.xml`.
 
-```bash
-npm run build      # creates /out
-npm run preview    # check the static site locally
-```
+## Working on the project
 
-## 4. Upload to cPanel
+Every decision, the design tokens, the file map and the change log are in [`docs/CONTEXT.md`](docs/CONTEXT.md). AI assistants should read [`CLAUDE.md`](CLAUDE.md) first. All copy lives in `src/content/`.
 
-1. **Back up the current WordPress site** in cPanel (Backup Wizard, or download `public_html` and export the database).
-2. Zip the **contents** of `out/` (not the folder itself): `cd out && zip -r ../techfahm-site.zip . && cd ..`
-3. In cPanel → File Manager → `public_html`: move the old WordPress files into a backup folder, upload `techfahm-site.zip`, and extract it.
-4. Make sure hidden files are visible (Settings → Show Hidden Files) and that `.htaccess` is there.
-5. Open https://techfahm.com and click through every page. In Google Search Console, submit `https://techfahm.com/sitemap.xml`.
+The GitHub Pages preview is built by [`.github/workflows/pages.yml`](.github/workflows/pages.yml) under `/techfahm` and is marked `noindex`, so it never competes with techfahm.com in search.
 
-## Editing content
+---
 
-All text is in `src/content/` (`site.ts`, `services.ts`, `industries.ts`, `faq.ts`). Images: add to `SOURCES` in `scripts/images.mjs`, run `npm run images`, then use `<Photo name="your-name" alt="…" />`.
+© Techfahm Systems Inc. · Website by [Milink](https://milink.ca)

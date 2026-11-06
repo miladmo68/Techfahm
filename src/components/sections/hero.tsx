@@ -26,7 +26,7 @@ export function Hero() {
       <div aria-hidden className="grid-lines absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_70%_40%,black_20%,transparent_75%)]" />
       <div
         aria-hidden
-        className="absolute -right-[20%] top-[-10%] -z-10 aspect-square w-[90vw] max-w-[1100px] rounded-full bg-[radial-gradient(circle,rgb(227_38_47/0.18),transparent_60%)]"
+        className="absolute -right-[20%] top-[-10%] -z-10 aspect-square w-[90vw] max-w-[1100px] rounded-full bg-[radial-gradient(circle,rgb(228_28_56/0.18),transparent_60%)]"
       />
 
       {/* Map */}

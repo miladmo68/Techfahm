@@ -5,7 +5,7 @@
    Deep   #10213F  raised dark surface
    Mist   #EEF2F7  cool light surface
    Steel  #5D6B82  secondary text on light
-   Signal #E3262F  Techfahm red — CTAs, alerts, focus. Use sparingly.
+   Signal #E41C38  Techfahm red — CTAs, alerts, focus. Use sparingly.
    Pulse  #3DDC97  "healthy" status in the network map only
 */
 @theme {
@@ -16,8 +16,8 @@
   --color-paper: #f8fafc;
   --color-steel: #5d6b82;
   --color-fog: #a9b6cc;
-  --color-signal: #e3262f;
-  --color-signal-dark: #c11a23;
+  --color-signal: #e41c38;
+  --color-signal-dark: #c4142e;
   --color-pulse: #3ddc97;
 
   --font-display: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;

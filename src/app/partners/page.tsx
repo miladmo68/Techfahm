@@ -10,7 +10,6 @@ export const metadata: Metadata = pageMeta({
   description:
     "Techfahm works with Microsoft, Cisco, Fortinet and Acronis to give Ontario businesses enterprise-grade IT, security and backup tailored to their goals.",
   path: "/partners/",
-  image: "company",
 });
 
 const notes: Record<string, string> = {
