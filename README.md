@@ -10,7 +10,9 @@ A fast, mobile-first rebuild of [techfahm.com](https://techfahm.com) (previously
 ## Highlights
 
 - **Static Next.js site.** Exports plain HTML/CSS/JS that runs on any cPanel host, with no Node or PHP on the server.
-- **Signature hero.** A canvas network map of the three service regions, with data packets moving along the links and an alert that gets raised and then resolved.
+- **Signature hero.** A canvas network map of the three service regions, with data packets moving along the links and an alert that gets raised and then resolved. On phones a live status pill mirrors it and a soft spotlight drifts across the map.
+- **An animated diagram for every service.** Network map, ticket flow, cloud sync, layered security, backup timeline and consulting roadmap, all in the same visual language.
+- **Mobile call bar.** A fixed "Call us / Book free consultation" bar appears after the hero on phones and hides near the footer.
 - **Motion:** smooth scroll (Lenis), masked headline reveals, sticky stacked service panels, scroll-filled statement, parallax and clip-path image reveals, magnetic buttons, custom cursor, page transitions, and a full-screen mobile menu. Every animation respects `prefers-reduced-motion`.
 - **Mobile-first.** Tested at 390px and 1440px, with no horizontal overflow and 44px tap targets.
 - **SEO:**
@@ -23,21 +25,29 @@ A fast, mobile-first rebuild of [techfahm.com](https://techfahm.com) (previously
 - **Security** (`.htaccess`): HTTPS + HSTS, strict Content-Security-Policy, clickjacking and MIME-sniffing protection, a locked-down Permissions-Policy, blocked access to dotfiles and backups, old WordPress attack paths returned as 410 Gone, and `security.txt`. The contact form has honeypot and timing checks.
 - **Images.** Every image is downloaded into the project and optimised to WebP at five widths, then served through `next/image` with a custom loader. No hotlinking.
 
-| Services (sticky stack) | Service page |
+| Services (sticky stack) | Service diagram |
 |---|---|
-| ![Services](docs/screenshots/desktop-services.webp) | ![Service page](docs/screenshots/desktop-service-page.webp) |
+| ![Services](docs/screenshots/desktop-services.webp) | ![Service diagram](docs/screenshots/desktop-service-diagram.webp) |
 
-| Mobile hero | Mobile menu | Local landing page |
-|---|---|---|
-| ![Mobile hero](docs/screenshots/mobile-hero.webp) | ![Mobile menu](docs/screenshots/mobile-menu.webp) | ![Toronto page](docs/screenshots/mobile-location.webp) |
+| Mobile hero | Mobile services + call bar | Mobile menu | Local landing page |
+|---|---|---|---|
+| ![Mobile hero](docs/screenshots/mobile-hero.webp) | ![Mobile services](docs/screenshots/mobile-services-stack.webp) | ![Mobile menu](docs/screenshots/mobile-menu.webp) | ![Toronto page](docs/screenshots/mobile-location.webp) |
 
 | Industries | Generated share image |
 |---|---|
 | ![Industries](docs/screenshots/desktop-industries.webp) | ![OG image](docs/screenshots/og-cybersecurity.webp) |
 
+## Lighthouse (static build, gzip)
+
+| Page | Mobile performance | Accessibility | Best practices | SEO |
+|---|---|---|---|---|
+| Home | 89–93 (desktop 99) | 100 | 100 | 100 |
+| Contact / Health | 95–97 | 100 | 100 | 100 |
+| Services, city pages, Partners | 82–92 | 100 | 100 | 100 |
+
 ## Tech stack
 
-Next.js 16 (App Router, static export) · React 19 · TypeScript · Tailwind CSS v4 · Motion · Lenis · Radix UI · React Hook Form + Zod · sharp · Schibsted Grotesk + Geist
+Next.js 16 (App Router, static export) · React 19 · TypeScript · Tailwind CSS v4 · Motion · Lenis · Radix UI · React Hook Form · sharp · Schibsted Grotesk + Geist
 
 ## Pages
 

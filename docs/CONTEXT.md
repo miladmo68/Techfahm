@@ -23,6 +23,10 @@ Rebuild https://techfahm.com (WordPress + Slider Revolution) as a premium, mobil
 | Security | Headers + rules in `public/.htaccess` (CSP, HSTS, 410 for WP paths, method + file blocking), `public/.well-known/security.txt` | Static site on shared Apache |
 | Preview hosting | GitHub Pages via `.github/workflows/pages.yml`, `NEXT_PUBLIC_BASE_PATH=/Techfahm`, auto `noindex` | Free live preview without hurting SEO |
 | Brand red | `#E41C38`, sampled from the real logo | Exact match with logo |
+| Photo look | `scripts/images.mjs` applies a brand colour grade (desaturate, navy multiply, faint red glow); `--no-grade` to skip; originals untouched | Stock and real photos read as one family |
+| Page-load animation | Hero/page-hero headline, lead, buttons and image use CSS classes `tf-rise`, `tf-fade-up`, `tf-fade-scale`, `tf-clip` (delay via `--d`), softer on <1024px; scroll animations stay in Motion; `template.tsx` only animates client-side navigations | First paint doesn't wait for JS, so LCP stays fast |
+| Form validation | react-hook-form built-in rules (zod removed, −144KB JS) | Speed |
+| Real proof | techfahm.com has no testimonials, team names, stats or address. Used only what it has: "decades of experience", the group team photo, partner brands (colour marks on /partners/), the real logo | Never invent facts |
 
 ## Design system
 - **Ink** `#0A1628` (dark surfaces), **Deep** `#10213F`, **Mist** `#EEF2F7`, **Paper** `#F8FAFC`, **Steel** `#5D6B82` (secondary text), **Signal** `#E3262F` (Techfahm red — CTAs, alerts, focus only), **Pulse** `#3DDC97` (healthy status in the hero map only).
@@ -67,7 +71,7 @@ HTTPS redirect + HSTS · Content-Security-Policy (self + Web3Forms only) · X-Fr
 - [x] Real photos + logo downloaded with `npm run images` and committed
 - [x] Pushed to GitHub https://github.com/miladmo68/Techfahm and GitHub Pages enabled (Source: GitHub Actions). Live preview: https://miladmo68.github.io/Techfahm/ (noindex)
 - [ ] Add Web3Forms key to `.env.local`, rebuild, send a test message
-- [ ] Lighthouse run on the real-image build
+- [x] Lighthouse: accessibility, best practices and SEO 100 on all tested pages; mobile performance 82–97, desktop 99
 - [ ] After go-live: verify Google Search Console + Bing, submit sitemap, create/claim the free Google Business Profile
 - [ ] Upload to cPanel (see README)
 
@@ -84,3 +88,4 @@ HTTPS redirect + HSTS · Content-Security-Policy (self + Web3Forms only) · X-Fr
 - 2026-11-06 — SEO + security pass: local landing pages (Toronto/Hamilton/Waterloo), generated OG images for every page, richer JSON-LD, sitemap images, llms.txt, verification env vars, hardened .htaccess (CSP, HSTS, 410 for WP), security.txt, form timing check, brand red set to logo red #E41C38, base-path support + GitHub Pages workflow, README with screenshots.
 - 2026-11-06 — GitHub: repo miladmo68/Techfahm created, code pushed, Pages source set to GitHub Actions, workflow green, live preview at https://miladmo68.github.io/Techfahm/, repo About links to it.
 - 2026-11-06 — Mobile parity pass: services now stack as sticky cards on mobile too (with "n / 6" badge); hero shows a live "Network status" pill under lg that mirrors the map alerts; on touch screens a soft red spotlight drifts across the network map (touch moves it); card and industry photos zoom in on scroll (ZoomIn) since touch has no hover; buttons get tap feedback; hero and CTA buttons are full-width on mobile; headings, leads, stats, page heroes, breadcrumbs, intro blocks, benefits, contact details, partners, team, 404 and footer are centred on mobile (long lists/FAQ/form stay left). Fixed: navbar logo/menu button were dark-on-dark on location pages.
+- 2026-11-06 — Polish pass: mobile sticky Call/Book bar (`layout/mobile-cta.tsx`, hides over `[data-hide-mobile-cta]` and on /contact/); brand colour grade for all photos; animated diagram per service (`sections/service-diagram.tsx`, shown in the Benefits section); full-colour partner marks on /partners/; shorter hero map on short phones; "What happens next" on /contact/; "decades of experience" from techfahm.com; real company photo replaces stock on /our-team/; fixed "IT" being lower-cased in headings (`lowerTitle`). Performance: zod removed, CSS page-load animations, map animation starts on idle and runs at 30fps on touch, 480px logo with fetchPriority high, 640px image size, WebP q72. Accessibility: scroll text animates colour (passes contrast), list markup fixed. Lighthouse a11y/SEO/BP 100.

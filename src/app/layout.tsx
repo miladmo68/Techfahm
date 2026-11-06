@@ -7,6 +7,7 @@ import { Providers } from "@/components/layout/providers";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Cursor } from "@/components/layout/cursor";
+import { MobileCta } from "@/components/layout/mobile-cta";
 import { ScrollProgress } from "@/components/ui/motion";
 import { site } from "@/content/site";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo";
@@ -75,6 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
           <Footer />
           <Cursor />
+          <MobileCta />
         </Providers>
         <JsonLd data={[organizationLd, websiteLd]} />
       </body>

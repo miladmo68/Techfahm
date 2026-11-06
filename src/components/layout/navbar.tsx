@@ -71,7 +71,7 @@ export function Navbar() {
         >
           <nav aria-label="Main" className="container-x flex h-[var(--header-h)] items-center justify-between gap-6">
             <Link href="/" aria-label="Techfahm home" className="relative z-10 shrink-0">
-              <Logo tone={onDark && !open ? "light" : "dark"} />
+              <Logo eager tone={onDark && !open ? "light" : "dark"} />
             </Link>
 
             <ul className={cn("hidden items-center gap-1 lg:flex", onDark && !open ? "text-white" : "text-ink")}>

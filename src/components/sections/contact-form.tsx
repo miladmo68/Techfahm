@@ -1,10 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, m } from "motion/react";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
@@ -28,16 +26,31 @@ function createFillTimer() {
   };
 }
 
-const schema = z.object({
-  name: z.string().trim().min(2, "Enter your name").max(100),
-  email: z.email("Enter a valid email address"),
-  company: z.string().optional(),
-  phone: z.string().optional(),
-  topic: z.string().optional(),
-  message: z.string().min(10, "Tell us a little more (10 characters or more)").max(5000, "Keep it under 5,000 characters"),
-  botcheck: z.string().max(0).optional(),
-});
-type Values = z.infer<typeof schema>;
+type Values = {
+  name: string;
+  email: string;
+  company?: string;
+  phone?: string;
+  topic?: string;
+  message: string;
+  botcheck?: string;
+};
+
+// Validation rules (react-hook-form built-in, no extra library)
+const rules = {
+  name: {
+    validate: (v: string) => (v.trim().length >= 2 && v.trim().length <= 100) || "Enter your name",
+  },
+  email: {
+    pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, message: "Enter a valid email address" },
+    required: "Enter a valid email address",
+  },
+  message: {
+    minLength: { value: 10, message: "Tell us a little more (10 characters or more)" },
+    maxLength: { value: 5000, message: "Keep it under 5,000 characters" },
+    required: "Tell us a little more (10 characters or more)",
+  },
+};
 
 export function ContactForm() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -47,7 +60,7 @@ export function ContactForm() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Values>({ resolver: zodResolver(schema) });
+  } = useForm<Values>({ mode: "onSubmit" });
 
   async function onSubmit(v: Values) {
     if (v.botcheck) return;
@@ -118,10 +131,10 @@ export function ContactForm() {
             className="grid gap-5 rounded-[1.5rem] border border-ink/10 bg-white p-6 sm:grid-cols-2 sm:p-9"
           >
             <Field label="Name" error={errors.name?.message}>
-              <input {...register("name")} autoComplete="name" className={input(!!errors.name)} />
+              <input {...register("name", rules.name)} autoComplete="name" className={input(!!errors.name)} />
             </Field>
             <Field label="Work email" error={errors.email?.message}>
-              <input {...register("email")} type="email" autoComplete="email" inputMode="email" className={input(!!errors.email)} />
+              <input {...register("email", rules.email)} type="email" autoComplete="email" inputMode="email" className={input(!!errors.email)} />
             </Field>
             <Field label="Company" optional>
               <input {...register("company")} autoComplete="organization" className={input(false)} />
@@ -138,7 +151,7 @@ export function ContactForm() {
               </select>
             </Field>
             <Field label="Message" error={errors.message?.message} className="sm:col-span-2">
-              <textarea {...register("message")} rows={5} className={cn(input(!!errors.message), "h-auto resize-y py-3")} />
+              <textarea {...register("message", rules.message)} rows={5} className={cn(input(!!errors.message), "h-auto resize-y py-3")} />
             </Field>
             <input type="text" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" {...register("botcheck")} />
             <div className="flex flex-col-reverse gap-4 text-center sm:col-span-2 sm:flex-row sm:items-center sm:justify-between sm:text-left">

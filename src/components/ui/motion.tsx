@@ -22,7 +22,21 @@ export function RevealLines({
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "0px 0px -12% 0px" });
   const reduce = useReducedMotion();
-  const show = immediate || inView;
+  const show = inView;
+  if (immediate) {
+    // Page-load headline: pure CSS so it paints before JavaScript loads
+    return (
+      <Tag className={className}>
+        {lines.map((line, i) => (
+          <span key={i} className="block overflow-hidden pb-[0.08em] -mb-[0.08em]">
+            <span className="tf-rise block" style={{ "--d": `${delay + i * 0.09}s` } as React.CSSProperties}>
+              {line}
+            </span>
+          </span>
+        ))}
+      </Tag>
+    );
+  }
   return (
     <Tag ref={ref as never} className={className}>
       {lines.map((line, i) => (
@@ -115,9 +129,10 @@ export function ScrubText({ text, className }: { text: string; className?: strin
 
 function Word({ children, progress, range }: { children: string; progress: MotionValue<number>; range: [number, number] }) {
   const reduce = useReducedMotion();
-  const opacity = useTransform(progress, range, reduce ? [1, 1] : [0.16, 1]);
+  // Fades from a muted colour that still passes contrast, up to white
+  const color = useTransform(progress, range, reduce ? ["#ffffff", "#ffffff"] : ["#6f7d94", "#ffffff"]);
   return (
-    <m.span style={{ opacity }} className="inline-block whitespace-pre">
+    <m.span style={{ color }} className="inline-block whitespace-pre">
       {children}{" "}
     </m.span>
   );

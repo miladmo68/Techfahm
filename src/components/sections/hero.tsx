@@ -32,12 +32,9 @@ export function Hero() {
       {/* Map */}
       <m.div
         style={{ y: mapY, opacity: mapOpacity }}
-        initial={reduce ? false : { opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.6, ease: EASE, delay: 0.2 }}
-        className="absolute inset-x-0 top-[calc(var(--header-h)+0.5rem)] h-[46svh] md:h-[54svh] lg:inset-y-0 lg:left-[44%] lg:right-0 lg:top-0 lg:h-auto"
+        className="absolute inset-x-0 top-[calc(var(--header-h)+0.5rem)] h-[46svh] md:h-[54svh] max-lg:[@media(max-height:740px)]:h-[34svh] lg:inset-y-0 lg:left-[44%] lg:right-0 lg:top-0 lg:h-auto"
       >
-        <div className="relative h-full w-full">
+        <div className="tf-fade-scale relative h-full w-full" style={{ "--d": "0.2s" } as React.CSSProperties}>
           <NetworkMap onAlert={onAlert} className="absolute inset-0 h-full w-full" />
           {REGION_POS.map((p, i) => (
             <span
@@ -55,7 +52,7 @@ export function Hero() {
       </m.div>
 
       {/* Copy */}
-      <div className="container-x relative mt-auto pb-10 pt-[50svh] text-center md:pt-[58svh] lg:my-auto lg:pb-0 lg:pt-[var(--header-h)] lg:text-left">
+      <div className="container-x relative mt-auto pb-10 pt-[50svh] text-center md:pt-[58svh] max-lg:[@media(max-height:740px)]:pt-[38svh] lg:my-auto lg:pb-0 lg:pt-[var(--header-h)] lg:text-left">
         {/* Mobile / tablet version of the status panel */}
         <MobileStatus alert={alert} />
         <div className="mx-auto max-w-[40rem] lg:mx-0 lg:max-w-[52rem]">
@@ -66,21 +63,11 @@ export function Hero() {
             className="t-hero text-white"
             lines={["IT that keeps", "your business", "running."]}
           />
-          <m.p
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.55 }}
-            className="t-lead muted mx-auto mt-6 max-w-[34rem] lg:mx-0"
-          >
+          <p className="tf-fade-up t-lead muted mx-auto mt-6 max-w-[34rem] lg:mx-0" style={{ "--d": "0.55s" } as React.CSSProperties}>
             Techfahm is a managed IT partner for businesses across the GTA, Hamilton and Waterloo. We monitor, secure
             and support your systems, so your team can focus on its work.
-          </m.p>
-          <m.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.7 }}
-            className="mx-auto mt-8 flex max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center lg:justify-start"
-          >
+          </p>
+          <div style={{ "--d": "0.7s" } as React.CSSProperties} className="tf-fade-up mx-auto mt-8 flex max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center lg:justify-start">
             <Magnetic className="flex sm:inline-flex">
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/contact/">Book a free consultation</Link>
@@ -89,18 +76,12 @@ export function Hero() {
             <Button asChild size="lg" variant="outline" className="w-full text-white sm:w-auto">
               <Link href="/services/">See our services</Link>
             </Button>
-          </m.div>
+          </div>
         </div>
       </div>
 
       {/* Status panel (illustrative) */}
-      <m.aside
-        aria-label="Illustration of network monitoring"
-        initial={reduce ? false : { opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: EASE, delay: 1.1 }}
-        className="absolute bottom-8 right-[var(--gutter)] hidden w-[19rem] rounded-2xl border border-white/10 bg-deep/70 p-4 backdrop-blur-xl lg:block"
-      >
+      <aside aria-label="Illustration of network monitoring" style={{ "--d": "1.1s" } as React.CSSProperties} className="tf-fade-up absolute bottom-8 right-[var(--gutter)] hidden w-[19rem] rounded-2xl border border-white/10 bg-deep/70 p-4 backdrop-blur-xl lg:block">
         <div className="flex items-center justify-between text-sm">
           <span className="font-medium">Network status</span>
           <span className="font-mono text-xs text-white/50">live view</span>
@@ -141,7 +122,7 @@ export function Hero() {
         <p className="mt-3 border-t border-white/10 pt-3 text-xs leading-relaxed text-white/45">
           An illustration of how we watch client networks and act on issues early.
         </p>
-      </m.aside>
+      </aside>
 
       <p className="sr-only">Serving {site.regions.join(", ")}.</p>
     </section>

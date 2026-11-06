@@ -124,3 +124,26 @@
 
 @keyframes accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }
 @keyframes accordion-up { from { height: var(--radix-accordion-content-height); } to { height: 0; } }
+
+/* ───────── Page-load animations in pure CSS ─────────
+   They start on first paint (no waiting for JavaScript), which keeps
+   the main content fast for Google (LCP). Delay via --d. */
+@keyframes tf-rise { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes tf-fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes tf-fade-scale { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes tf-clip { from { clip-path: inset(20% 0% 0% 0% round 28px); opacity: 0; } to { clip-path: inset(0% 0% 0% 0% round 28px); opacity: 1; } }
+.tf-rise { animation: tf-rise 0.9s var(--ease-out-expo) var(--d, 0s) both; }
+.tf-fade-up { animation: tf-fade-up 0.9s var(--ease-out-expo) var(--d, 0s) both; }
+.tf-fade-scale { animation: tf-fade-scale 1.6s var(--ease-out-expo) var(--d, 0s) both; }
+.tf-clip { animation: tf-clip 1.2s var(--ease-out-expo) var(--d, 0s) both; }
+
+/* Phones/tablets: the headline is visible from the first frame and only glides up
+   a little, so it counts as the main content for Google straight away. */
+@keyframes tf-rise-soft { from { transform: translateY(0.32em); } to { transform: none; } }
+@keyframes tf-fade-up-soft { from { opacity: 0.35; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes tf-clip-soft { from { clip-path: inset(10% 0% 0% 0% round 28px); } to { clip-path: inset(0% 0% 0% 0% round 28px); } }
+@media (max-width: 1023px) {
+  .tf-rise { animation-name: tf-rise-soft; }
+  .tf-fade-up { animation-name: tf-fade-up-soft; }
+  .tf-clip { animation-name: tf-clip-soft; }
+}

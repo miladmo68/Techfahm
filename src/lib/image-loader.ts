@@ -3,7 +3,7 @@
  * `src` is "/images/<name>.jpg" (the logical image). The pipeline in
  * scripts/images.mjs writes "/images/<name>-<width>.webp" for each width.
  */
-const WIDTHS = [240, 480, 828, 1200, 1920];
+const WIDTHS = [240, 480, 640, 828, 1200, 1920];
 
 export default function imageLoader({ src, width }: { src: string; width: number; quality?: number }) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";

@@ -14,7 +14,7 @@ const social = [
 
 export function Footer() {
   return (
-    <footer className="on-dark relative overflow-hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+    <footer data-hide-mobile-cta className="on-dark relative overflow-hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
       <div className="container-x grid grid-cols-2 gap-x-6 gap-y-10 pb-10 pt-14 md:grid-cols-12 md:gap-12 md:pb-12 md:pt-16">
         <div className="col-span-2 flex flex-col items-center text-center md:col-span-4 md:items-start md:text-left">
           <Logo tone="light" />

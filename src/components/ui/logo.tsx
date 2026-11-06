@@ -8,7 +8,7 @@ import { asset } from "@/lib/base-path";
  * `tone="light"` turns it white for dark backgrounds.
  * Falls back to a text wordmark until the logo has been downloaded.
  */
-export function Logo({ tone = "dark", className }: { tone?: "dark" | "light"; className?: string }) {
+export function Logo({ tone = "dark", className, eager = false }: { tone?: "dark" | "light"; className?: string; eager?: boolean }) {
   if (logo?.source === "real" && logo.width && logo.height) {
     return (
       <Image
@@ -17,7 +17,8 @@ export function Logo({ tone = "dark", className }: { tone?: "dark" | "light"; cl
         width={logo.width}
         height={logo.height}
         unoptimized
-        priority
+        loading={eager ? "eager" : "lazy"}
+        fetchPriority={eager ? "high" : "auto"}
         className={cn("h-7 w-auto md:h-8", tone === "light" && "brightness-0 invert", className)}
       />
     );

@@ -207,7 +207,13 @@ export function NetworkMap({ onAlert, className }: { onAlert?: (s: AlertState) =
       });
     }
 
+    // Phones: ~30fps is plenty for this scene and halves the work
+    const minFrame = finePointer ? 0 : 1000 / 30;
     function tick(now: number) {
+      if (now - last < minFrame) {
+        if (visible) raf = requestAnimationFrame(tick);
+        return;
+      }
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
       alertTimer -= dt;
@@ -234,9 +240,22 @@ export function NetworkMap({ onAlert, className }: { onAlert?: (s: AlertState) =
     ro.observe(canvas);
     resize();
 
+    // Draw one still frame now; start animating once the page has settled,
+    // so the animation never competes with the first load.
+    let started = false;
+    draw(0, 0);
+    const start = () => {
+      if (started || reduce) return;
+      started = true;
+      last = performance.now();
+      if (visible) raf = requestAnimationFrame(tick);
+    };
+    const idle = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
+    const startTimer = idle ? idle(start, { timeout: 2500 }) : window.setTimeout(start, 1200);
+
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
-      if (visible && !reduce) {
+      if (visible && started && !reduce) {
         last = performance.now();
         cancelAnimationFrame(raf);
         raf = requestAnimationFrame(tick);
@@ -256,10 +275,10 @@ export function NetworkMap({ onAlert, className }: { onAlert?: (s: AlertState) =
     window.addEventListener("pointermove", onMove, { passive: true });
     document.addEventListener("pointerleave", onLeave);
 
-    if (!reduce) raf = requestAnimationFrame(tick);
     void hubs;
 
     return () => {
+      if (!idle) window.clearTimeout(startTimer as number);
       cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();

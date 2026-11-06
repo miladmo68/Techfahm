@@ -1,7 +1,9 @@
+import { lowerTitle } from "@/lib/utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Cta, PageHero } from "@/components/sections/home-sections";
 import { Benefits, Checklist, IntroBlock, RelatedServices } from "@/components/sections/detail";
+import { ServiceDiagram } from "@/components/sections/service-diagram";
 import { getService, services } from "@/content/services";
 import { JsonLd, breadcrumbLd, pageMeta, serviceLd } from "@/lib/seo";
 
@@ -30,13 +32,17 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         imageAlt={s.imageAlt}
       />
       <IntroBlock
-        heading={["How we handle", s.title.toLowerCase()]}
+        heading={["How we handle", lowerTitle(s.title)]}
         paragraphs={s.intro}
         aside={<Checklist title="What's included" items={s.includes} />}
       />
-      <Benefits heading={[`What ${s.title.toLowerCase()}`, "does for your business"]} items={s.benefits} />
+      <Benefits
+        heading={[`What ${lowerTitle(s.title)}`, "does for your business"]}
+        items={s.benefits}
+        visual={<ServiceDiagram slug={s.slug} />}
+      />
       <RelatedServices slugs={s.related} />
-      <Cta title={["Ready to talk about", `${s.title.toLowerCase()}?`]} />
+      <Cta title={["Ready to talk about", `${lowerTitle(s.title)}?`]} />
       <JsonLd
         data={[
           serviceLd(s),

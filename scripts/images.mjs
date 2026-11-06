@@ -22,7 +22,7 @@ const RAW = path.join(ROOT, "assets/raw");
 const OUT = path.join(ROOT, "public/images");
 const MANIFEST = path.join(ROOT, "src/lib/image-manifest.json");
 const CREDITS = path.join(ROOT, "docs/image-credits.md");
-const WIDTHS = [240, 480, 828, 1200, 1920]; // keep in sync with image-loader.ts + next.config.ts
+const WIDTHS = [240, 480, 640, 828, 1200, 1920]; // keep in sync with image-loader.ts + next.config.ts
 const FORCE = process.argv.includes("--force");
 const OFFLINE = process.argv.includes("--offline");
 
@@ -98,13 +98,41 @@ function placeholder(name) {
   return sharp(Buffer.from(svg)).jpeg({ quality: 80 }).toBuffer();
 }
 
-async function processPhoto(name, input) {
+/**
+ * Brand colour grade: slightly desaturated, cool navy multiply and a faint red
+ * glow top-right, so photos from different sources look like one family.
+ * Originals in assets/raw stay untouched. Skip with --no-grade.
+ */
+const GRADE = !process.argv.includes("--no-grade");
+const NO_GRADE = new Set(["share"]);
+
+async function grade(input) {
+  const base = sharp(input).rotate();
+  const { width, height } = await base.metadata();
+  const toned = await base.modulate({ saturation: 0.74, brightness: 0.97 }).toBuffer();
+  const navy = await sharp({ create: { width, height, channels: 4, background: { r: 20, g: 40, b: 80, alpha: 0.26 } } })
+    .png()
+    .toBuffer();
+  const glow = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><defs><radialGradient id="g" cx="0.9" cy="0.1" r="0.85"><stop offset="0" stop-color="#e41c38" stop-opacity="0.16"/><stop offset="1" stop-color="#e41c38" stop-opacity="0"/></radialGradient></defs><rect width="100%" height="100%" fill="url(#g)"/></svg>`,
+  );
+  return sharp(toned)
+    .composite([
+      { input: navy, blend: "multiply" },
+      { input: glow, blend: "screen" },
+    ])
+    .jpeg({ quality: 92 })
+    .toBuffer();
+}
+
+async function processPhoto(name, rawInput) {
+  const input = GRADE && !NO_GRADE.has(name) && typeof rawInput === "string" ? await grade(rawInput) : rawInput;
   const img = sharp(input).rotate();
   const meta = await img.metadata();
   for (const w of WIDTHS) {
     await sharp(input).rotate()
       .resize({ width: w, withoutEnlargement: true })
-      .webp({ quality: 78, effort: 5 })
+      .webp({ quality: 72, effort: 6 })
       .toFile(path.join(OUT, `${name}-${w}.webp`));
   }
   const blur = await sharp(input).resize(16).webp({ quality: 40 }).toBuffer();
@@ -155,7 +183,8 @@ async function main() {
   }
   const logoRaw = path.join(RAW, "logo.png");
   if (await exists(logoRaw)) {
-    await sharp(logoRaw).trim().png({ compressionLevel: 9 }).toFile(path.join(OUT, "logo.png"));
+    // 480px wide is plenty for a ~140px logo on retina screens, and far lighter than the original
+    await sharp(logoRaw).trim().resize({ width: 480, withoutEnlargement: true }).png({ compressionLevel: 9, palette: true }).toFile(path.join(OUT, "logo.png"));
     const m = await sharp(path.join(OUT, "logo.png")).metadata();
     manifest.__logo = { width: m.width, height: m.height, source: "real" };
     console.log("  ✓ logo.png");

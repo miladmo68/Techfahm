@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cta, PageHero } from "@/components/sections/home-sections";
 import { WidePhoto } from "@/components/sections/detail";
-import { partnerLogos } from "@/components/sections/partners-strip";
+import { partnerLogosColor } from "@/components/sections/partners-strip";
 import { Reveal, RevealLines } from "@/components/ui/motion";
 import { JsonLd, breadcrumbLd, pageMeta } from "@/lib/seo";
 
@@ -37,13 +37,15 @@ export default function PartnersPage() {
             solutions instead of off-the-shelf bundles.
           </p>
           <ul className="mt-14 grid gap-5 sm:grid-cols-2">
-            {partnerLogos.map((p, i) => (
-              <Reveal key={p.name} delay={i * 0.06}>
-                <li className="flex h-full flex-col items-center justify-between gap-8 rounded-[1.5rem] border border-ink/10 bg-white p-8 text-center sm:items-start sm:gap-10 sm:text-left">
-                  <div className="text-ink">{p.node}</div>
+            {partnerLogosColor.map((p, i) => (
+              <li key={p.name}>
+                <Reveal delay={i * 0.06} className="h-full">
+                <div className="flex h-full flex-col items-center justify-between gap-8 rounded-[1.5rem] border border-ink/10 bg-white p-8 text-center sm:items-start sm:gap-10 sm:text-left">
+                  <div className="flex h-16 items-center">{p.node}</div>
                   <p className="muted">{notes[p.name]}</p>
-                </li>
-              </Reveal>
+                </div>
+                </Reveal>
+              </li>
             ))}
           </ul>
         </div>

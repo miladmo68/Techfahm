@@ -1,5 +1,6 @@
 "use client";
 
+import { lowerTitle } from "@/lib/utils";
 import { m, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import Link from "next/link";
 import { useRef } from "react";
@@ -93,7 +94,7 @@ function Panel({ s, i, total, progress }: { s: Service; i: number; total: number
             href={`/services/${s.slug}/`}
             className="inline-flex w-full items-center justify-between gap-3 rounded-full bg-white/10 py-2 pl-5 pr-2 text-sm font-medium backdrop-blur transition-colors hover:bg-signal active:bg-signal sm:w-fit sm:justify-start"
           >
-            Explore {s.title.toLowerCase()}
+            Explore {lowerTitle(s.title)}
             <span className="grid size-8 place-items-center rounded-full bg-white text-ink">
               <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden>
                 <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />

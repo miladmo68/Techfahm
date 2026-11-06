@@ -20,6 +20,7 @@ This is the **Techfahm.com redesign**: a static Next.js site that replaces the o
 - All copy lives in `src/content/*.ts`. Change text there, not in components.
 - Mobile-first. Check 375px and 1440px screenshots before finishing. No horizontal overflow.
 - Respect `prefers-reduced-motion` in every new animation. Animate `transform`/`opacity` only.
+- Anything visible on first load (hero headline, lead, buttons, hero image) animates with the CSS classes `tf-rise` / `tf-fade-up` / `tf-clip` — never start it at opacity 0 with Motion, or Google's LCP gets slow. Re-run Lighthouse after big changes.
 - `npm run lint` and `npm run build` must pass with zero errors.
 
 ## Commands

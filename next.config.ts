@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
     loader: "custom",
     loaderFile: "./src/lib/image-loader.ts",
     // Must match WIDTHS in scripts/images.mjs
-    deviceSizes: [480, 828, 1200, 1920],
+    deviceSizes: [480, 640, 828, 1200, 1920],
     imageSizes: [240],
   },
   turbopack: {

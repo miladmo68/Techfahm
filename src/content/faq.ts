@@ -5,7 +5,7 @@ export const faq = [
   },
   {
     q: "Which areas do you serve?",
-    a: "We work with businesses across the Greater Toronto Area, Hamilton & Niagara, and the Waterloo Region.",
+    a: "We work with businesses across the Greater Toronto Area, Hamilton & Niagara, and the Waterloo Region, backed by decades of experience in business IT.",
   },
   {
     q: "Is my business too small for managed IT?",

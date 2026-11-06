@@ -25,7 +25,7 @@ export default function TeamPage() {
       <PageHero
         crumbs={[{ label: "Our team" }]}
         title={["IT experts who care", "how your business does."]}
-        lead="Our team is made up of IT specialists who are passionate about helping businesses succeed, with a range of skills that covers your whole setup."
+        lead="Our team is made up of IT specialists with decades of experience, passionate about helping businesses succeed, with a range of skills that covers your whole setup."
         image="team"
         imageAlt="Team working together in a large office"
       />
@@ -37,15 +37,15 @@ export default function TeamPage() {
           </div>
           <ol className="lg:col-span-7">
             {steps.map((s, i) => (
-              <Reveal key={s.title} delay={i * 0.05}>
-                <li className="grid grid-cols-[3rem_1fr] gap-4 border-t border-ink/10 py-8">
+              <li key={s.title} className="border-t border-ink/10 py-8">
+                <Reveal delay={i * 0.05} className="grid grid-cols-[3rem_1fr] gap-4">
                   <span className="font-display text-2xl font-semibold text-signal">{i + 1}</span>
                   <div>
                     <h3 className="t-h3">{s.title}</h3>
                     <p className="muted mt-2">{s.body}</p>
                   </div>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ol>
         </div>
@@ -60,7 +60,7 @@ export default function TeamPage() {
           </ul>
         </div>
       </section>
-      <WidePhoto name="office-team" alt="Techfahm team meeting in an office" />
+      <WidePhoto name="company" alt="People working at their computers in an office" />
       <Cta />
       <JsonLd data={breadcrumbLd([{ name: "Our team", path: "/our-team/" }])} />
     </>

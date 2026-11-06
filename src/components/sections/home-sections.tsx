@@ -10,7 +10,7 @@ import { ParallaxFrame, Reveal, RevealLines, ScrubText, TextLink, ZoomIn } from 
 import { Photo } from "@/components/ui/photo";
 import { industries } from "@/content/industries";
 import { site } from "@/content/site";
-import { EASE, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 /* ───────── Scroll statement ───────── */
 export function Statement() {
@@ -42,7 +42,7 @@ export function Statement() {
 const pillars = [
   {
     title: "Experience",
-    body: "Our team has designed, installed and run IT systems for businesses across Ontario, including healthcare providers, manufacturers and distributors.",
+    body: "We bring decades of experience designing, installing and running IT systems for businesses across Ontario, including healthcare providers, manufacturers and distributors.",
   },
   {
     title: "Commitment",
@@ -71,13 +71,13 @@ export function WhyUs() {
         </div>
         <ol className="lg:col-span-6 lg:pt-40">
           {pillars.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.05}>
-              <li className="border-t border-ink/10 py-10 text-center first:border-t-0 lg:py-14 lg:text-left lg:first:border-t">
+            <li key={p.title} className="border-t border-ink/10 py-10 text-center first:border-t-0 lg:py-14 lg:text-left lg:first:border-t">
+              <Reveal delay={i * 0.05}>
                 <span aria-hidden className="mx-auto mb-5 block h-0.5 w-8 bg-signal lg:hidden" />
                 <h3 className="t-h3 text-ink">{p.title}</h3>
                 <p className="muted mx-auto mt-3 max-w-md text-[1.05rem] lg:mx-0">{p.body}</p>
-              </li>
-            </Reveal>
+              </Reveal>
+            </li>
           ))}
         </ol>
       </div>
@@ -106,9 +106,10 @@ export function Process() {
           <RevealLines className="t-h2" lines={["Getting started", "takes four steps."]} />
           <p className="muted t-lead mx-auto mt-6 max-w-md md:mx-0">Nothing changes in your systems until you&apos;ve seen and approved the plan.</p>
         </div>
-        <ol ref={ref} className="relative md:col-span-7">
+        <div className="relative md:col-span-7">
           <div aria-hidden className="absolute bottom-3 left-[1.15rem] top-3 w-px bg-ink/10" />
           <m.div aria-hidden style={{ scaleY }} className="absolute bottom-3 left-[1.15rem] top-3 w-px origin-top bg-signal" />
+          <ol ref={ref} className="relative">
           {steps.map((s, i) => (
             <li key={s.title} className="relative grid grid-cols-[2.3rem_1fr] gap-5 pb-12 last:pb-0">
               <span className="relative z-10 grid size-[2.3rem] place-items-center rounded-full border border-ink/15 bg-mist font-display text-sm font-semibold">
@@ -120,7 +121,8 @@ export function Process() {
               </Reveal>
             </li>
           ))}
-        </ol>
+          </ol>
+        </div>
       </div>
     </section>
   );
@@ -218,7 +220,7 @@ export function Cta({ title = ["Let's make IT the part", "of your business you",
   const inset = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["4%", "0%"]);
 
   return (
-    <section ref={ref} className="bg-paper">
+    <section ref={ref} data-hide-mobile-cta className="bg-paper">
       <m.div
         style={{ borderTopLeftRadius: radius, borderTopRightRadius: radius, marginInline: inset }}
         className="on-dark grain relative overflow-hidden"
@@ -261,7 +263,6 @@ export function PageHero({
   image?: string;
   imageAlt?: string;
 }) {
-  const reduce = useReducedMotion();
   return (
     <section className="on-dark grain relative overflow-hidden pb-14 pt-[calc(var(--header-h)+3rem)] md:pb-20 md:pt-[calc(var(--header-h)+5rem)]">
       <div aria-hidden className="grid-lines absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
@@ -287,24 +288,17 @@ export function PageHero({
         <div className={cn("mt-8 grid gap-10", image && "lg:grid-cols-12 lg:items-end")}>
           <div className={cn("text-center lg:text-left", image && "lg:col-span-7")}>
             <RevealLines as="h1" immediate className="t-h1 text-white" lines={title} />
-            <m.p
-              initial={reduce ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.35 }}
-              className="t-lead muted mx-auto mt-6 max-w-2xl lg:mx-0"
-            >
+            <p className="tf-fade-up t-lead muted mx-auto mt-6 max-w-2xl lg:mx-0" style={{ "--d": "0.35s" } as React.CSSProperties}>
               {lead}
-            </m.p>
+            </p>
           </div>
           {image && (
-            <m.div
-              initial={reduce ? false : { clipPath: "inset(20% 0% 0% 0% round 28px)", opacity: 0 }}
-              animate={{ clipPath: "inset(0% 0% 0% 0% round 28px)", opacity: 1 }}
-              transition={{ duration: 1.2, ease: EASE, delay: 0.3 }}
-              className="relative aspect-[4/3] overflow-hidden rounded-[1.75rem] lg:col-span-5"
+            <div
+              style={{ "--d": "0.3s" } as React.CSSProperties}
+              className="tf-clip relative aspect-[4/3] overflow-hidden rounded-[1.75rem] lg:col-span-5"
             >
-              <Photo name={image} alt={imageAlt ?? ""} fill priority sizes="(min-width:1024px) 40vw, 100vw" className="object-cover" />
-            </m.div>
+              <Photo name={image} alt={imageAlt ?? ""} fill loading="eager" fetchPriority="high" sizes="(min-width:1024px) 40vw, 100vw" className="object-cover" />
+            </div>
           )}
         </div>
       </div>

@@ -39,11 +39,25 @@ export function Checklist({ title, items }: { title: string; items: string[] }) 
   );
 }
 
-export function Benefits({ heading, items }: { heading: string[]; items: { title: string; body: string }[] }) {
+export function Benefits({
+  heading,
+  items,
+  visual,
+}: {
+  heading: string[];
+  items: { title: string; body: string }[];
+  visual?: React.ReactNode;
+}) {
   return (
     <section className="section on-dark relative overflow-hidden">
       <div className="container-x">
-        <RevealLines className="t-h2 mx-auto max-w-3xl text-center text-white md:mx-0 md:text-left" lines={heading} />
+        <div className={visual ? "grid items-center gap-10 lg:grid-cols-12" : undefined}>
+          <RevealLines
+            className={`t-h2 mx-auto max-w-3xl text-center text-white md:mx-0 md:text-left ${visual ? "lg:col-span-6" : ""}`}
+            lines={heading}
+          />
+          {visual && <Reveal className="mx-auto w-full max-w-xl lg:col-span-6 lg:max-w-none">{visual}</Reveal>}
+        </div>
         <div className="mt-14 grid gap-px overflow-hidden rounded-[1.75rem] bg-white/10 md:grid-cols-3">
           {items.map((b, i) => (
             <Reveal key={b.title} delay={i * 0.08} className="bg-ink p-7 text-center sm:p-9 md:text-left">

@@ -22,6 +22,35 @@ function Acronis() {
   return <span className="font-sans text-[1.5rem] font-bold tracking-[-0.02em]">Acronis</span>;
 }
 
+/** Full-colour brand marks, as shown on the original techfahm.com partners page */
+export const partnerLogosColor = [
+  {
+    name: "Microsoft",
+    node: (
+      <span className="flex items-center gap-3">
+        <svg viewBox="0 0 23 23" className="size-8" aria-hidden>
+          <path fill="#f25022" d="M1 1h10v10H1z" />
+          <path fill="#7fba00" d="M12 1h10v10H12z" />
+          <path fill="#00a4ef" d="M1 12h10v10H1z" />
+          <path fill="#ffb900" d="M12 12h10v10H12z" />
+        </svg>
+        <span className="font-sans text-[1.6rem] font-semibold tracking-tight text-[#737373]">Microsoft</span>
+      </span>
+    ),
+  },
+  { name: "Cisco", node: <span className="text-[#049fd9]"><Icon path={siCisco.path} label="Cisco" className="h-16" /></span> },
+  {
+    name: "Fortinet",
+    node: (
+      <span className="flex items-center gap-3 text-[#ee3124]">
+        <Icon path={siFortinet.path} label="" className="h-7" />
+        <span className="font-sans text-[1.6rem] font-bold tracking-tight">FORTINET</span>
+      </span>
+    ),
+  },
+  { name: "Acronis", node: <span className="font-sans text-[1.75rem] font-bold tracking-[-0.02em] text-[#0b5ea8]">Acronis</span> },
+];
+
 export const partnerLogos = [
   { name: "Microsoft", node: <Microsoft /> },
   { name: "Cisco", node: <Icon path={siCisco.path} label="Cisco" className="h-14" /> },
