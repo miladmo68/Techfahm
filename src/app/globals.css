@@ -43,6 +43,7 @@
 
 @layer base {
   html {
+    background-color: var(--color-ink);
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
   }
@@ -51,7 +52,7 @@
   .lenis.lenis-stopped { overflow: clip; }
 
   body {
-    @apply bg-paper text-ink font-sans antialiased;
+    @apply bg-ink text-ink font-sans antialiased;
     font-size: 1rem;
     line-height: 1.6;
     overflow-x: clip;

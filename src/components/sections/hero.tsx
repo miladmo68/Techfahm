@@ -22,7 +22,7 @@ export function Hero() {
   const mapOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
 
   return (
-    <section ref={ref} className="on-dark grain relative isolate flex min-h-[100svh] flex-col overflow-hidden">
+    <section ref={ref} className="on-dark grain relative isolate flex min-h-[100svh] flex-col overflow-hidden max-lg:min-h-[100lvh]">
       <div aria-hidden className="grid-lines absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_70%_40%,black_20%,transparent_75%)]" />
       <div
         aria-hidden
@@ -52,7 +52,7 @@ export function Hero() {
       </m.div>
 
       {/* Copy */}
-      <div className="container-x relative shrink-0 pb-[max(2rem,calc(env(safe-area-inset-bottom)+1rem))] pt-1 text-center lg:my-auto lg:pb-0 lg:pt-[var(--header-h)] lg:text-left">
+      <div className="container-x relative shrink-0 pb-[max(2rem,calc(env(safe-area-inset-bottom)_+_1rem),calc(1.25rem_+_100lvh_-_100svh))] pt-1 text-center lg:my-auto lg:pb-0 lg:pt-[var(--header-h)] lg:text-left">
         {/* Mobile / tablet version of the status panel */}
         <MobileStatus alert={alert} />
         <div className="mx-auto max-w-[40rem] lg:mx-0 lg:max-w-[52rem]">
