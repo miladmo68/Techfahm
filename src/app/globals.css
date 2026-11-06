@@ -1,26 +1,126 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ───────────── Design tokens ─────────────
+   Ink    #0A1628  deep navy, main dark surface
+   Deep   #10213F  raised dark surface
+   Mist   #EEF2F7  cool light surface
+   Steel  #5D6B82  secondary text on light
+   Signal #E3262F  Techfahm red — CTAs, alerts, focus. Use sparingly.
+   Pulse  #3DDC97  "healthy" status in the network map only
+*/
+@theme {
+  --color-ink: #0a1628;
+  --color-deep: #10213f;
+  --color-line: #1f3357;
+  --color-mist: #eef2f7;
+  --color-paper: #f8fafc;
+  --color-steel: #5d6b82;
+  --color-fog: #a9b6cc;
+  --color-signal: #e3262f;
+  --color-signal-dark: #c11a23;
+  --color-pulse: #3ddc97;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-display: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  /* Spacing rhythm — one source of truth for section padding */
+  --section-y: clamp(4.5rem, 10vw, 9rem);
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --header-h: 4.25rem;
+  color-scheme: light;
 }
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: clip; }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--color-signal); color: white; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 82rem;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .section { padding-block: var(--section-y); }
+
+  /* Type scale (perfect-fourth-ish, fluid) */
+  .t-hero { font-size: clamp(2.6rem, 8.4vw, 6rem); font-weight: 650; letter-spacing: -0.04em; line-height: 0.98; }
+  .t-h1 { font-size: clamp(2.3rem, 6.2vw, 4.75rem); font-weight: 650; letter-spacing: -0.035em; }
+  .t-h2 { font-size: clamp(1.9rem, 4.4vw, 3.4rem); font-weight: 620; }
+  .t-h3 { font-size: clamp(1.25rem, 2vw, 1.6rem); font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; }
+  .t-lead { font-size: clamp(1.06rem, 1.5vw, 1.28rem); line-height: 1.6; }
+  .t-kicker { font-size: 0.9rem; font-weight: 500; color: var(--color-signal); }
+
+  .prose-x { max-width: 68ch; }
+  .prose-x p + p { margin-top: 1.1em; }
+
+  .on-dark { @apply bg-ink text-white; color-scheme: dark; }
+  .on-dark .muted { color: var(--color-fog); }
+  .muted { color: var(--color-steel); }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }
+@keyframes accordion-up { from { height: var(--radix-accordion-content-height); } to { height: 0; } }

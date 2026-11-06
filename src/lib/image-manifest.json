@@ -1,0 +1,101 @@
+{
+  "hero": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "company": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "team": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "network": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "support": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "cloud": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "cyber": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "backup": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "consulting": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "health": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "manufacturing": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "share": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "datacenter": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "server-room": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "office-team": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "technician": {
+    "width": 1920,
+    "height": 1280,
+    "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABQAQCdASoQAAsAA4BaJQBOgCgAAP7xXtUzkxrGvFMwd7u4AAA=",
+    "source": "placeholder"
+  },
+  "__logo": {
+    "source": "missing"
+  }
+}

@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Techfahm.com — Next.js redesign
 
-## Getting Started
+Static, mobile-first marketing site for Techfahm Systems Inc. Built with Next.js (App Router, static export), TypeScript, Tailwind CSS v4, Motion, Lenis and Radix. Runs on any cPanel host. No Node or PHP needed on the server.
 
-First, run the development server:
+> Working on this project with an AI assistant? Tell it: **"Read CLAUDE.md and docs/CONTEXT.md first."**
+
+## 1. First run (on your computer)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run images     # downloads every Techfahm photo + free Pexels photos and optimises them
+npm run dev        # open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run images` needs internet. It saves originals in `assets/raw/` and optimised WebP files in `public/images/`, then rewrites `src/lib/image-manifest.json`. Any image it can't download is replaced by a fallback or a placeholder, and it prints which ones. Run it again any time (`npm run images -- --force` re-downloads everything).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 2. Contact form (free)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Go to https://web3forms.com, enter `info@techfahm.com`, and copy the access key they email you.
+2. Create `.env.local` in the project root:
+   ```
+   NEXT_PUBLIC_WEB3FORMS_KEY=your-key-here
+   ```
+3. Rebuild. Without a key, the form opens the visitor's email app instead.
 
-## Learn More
+## 3. Build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build      # creates /out
+npm run preview    # check the static site locally
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 4. Upload to cPanel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Back up the current WordPress site** in cPanel (Backup Wizard, or download `public_html` and export the database).
+2. Zip the **contents** of `out/` (not the folder itself): `cd out && zip -r ../techfahm-site.zip . && cd ..`
+3. In cPanel → File Manager → `public_html`: move the old WordPress files into a backup folder, upload `techfahm-site.zip`, and extract it.
+4. Make sure hidden files are visible (Settings → Show Hidden Files) and that `.htaccess` is there.
+5. Open https://techfahm.com and click through every page. In Google Search Console, submit `https://techfahm.com/sitemap.xml`.
 
-## Deploy on Vercel
+## Editing content
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All text is in `src/content/` (`site.ts`, `services.ts`, `industries.ts`, `faq.ts`). Images: add to `SOURCES` in `scripts/images.mjs`, run `npm run images`, then use `<Photo name="your-name" alt="…" />`.
