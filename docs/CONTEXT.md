@@ -65,7 +65,7 @@ HTTPS redirect + HSTS · Content-Security-Policy (self + Web3Forms only) · X-Fr
 ## Status
 - [x] All pages built, lint + build pass, screenshots checked at 390px and 1440px
 - [x] Real photos + logo downloaded with `npm run images` and committed
-- [ ] Push to GitHub `miladmo68/Techfahm` and enable GitHub Pages (Settings → Pages → Source: GitHub Actions)
+- [x] Pushed to GitHub https://github.com/miladmo68/Techfahm and GitHub Pages enabled (Source: GitHub Actions). Live preview: https://miladmo68.github.io/Techfahm/ (noindex)
 - [ ] Add Web3Forms key to `.env.local`, rebuild, send a test message
 - [ ] Lighthouse run on the real-image build
 - [ ] After go-live: verify Google Search Console + Bing, submit sitemap, create/claim the free Google Business Profile
@@ -82,3 +82,4 @@ HTTPS redirect + HSTS · Content-Security-Policy (self + Web3Forms only) · X-Fr
 - 2026-11-06 — Footer: big "techfahm" wordmark is now a centred background behind the whole footer (no extra space below). Bottom row credits "Designed & developed by Milink" → https://milink.ca.
 - 2026-11-06 — Footer: removed the background wordmark entirely; tighter padding (pt-14/pb-10 mobile, pt-16/pb-12 desktop, bottom row py-5); on mobile Industries and Company sit side by side.
 - 2026-11-06 — SEO + security pass: local landing pages (Toronto/Hamilton/Waterloo), generated OG images for every page, richer JSON-LD, sitemap images, llms.txt, verification env vars, hardened .htaccess (CSP, HSTS, 410 for WP), security.txt, form timing check, brand red set to logo red #E41C38, base-path support + GitHub Pages workflow, README with screenshots.
+- 2026-11-06 — GitHub: repo miladmo68/Techfahm created, code pushed, Pages source set to GitHub Actions, workflow green, live preview at https://miladmo68.github.io/Techfahm/, repo About links to it.
