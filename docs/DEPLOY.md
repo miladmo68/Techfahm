@@ -42,6 +42,8 @@ Roll back to WordPress: move the files from `~/wordpress-backup-2026-11-07/` bac
 with PHP `mail()`. The sender is the hosting account's own address and Reply-To is the visitor, because
 techfahm.com mail runs on Microsoft 365 with strict SPF/DMARC (`-all`, `p=quarantine`) — sending "as"
 @techfahm.com from the web server would be rejected. If enquiries land in Junk, mark one "Not junk".
+cPanel → Email Routing for techfahm.com must stay on **Remote Mail Exchanger** (set 2026-11-07); on "Local" the
+form's emails get stuck in an old mailbox on the GoDaddy server instead of reaching Outlook.
 Protection: POST only, same-site Origin, honeypot, 3-second minimum, 5 per IP per hour, length limits.
 `public/404.php` serves `404.html` with a real 404 status (the host ignores `ErrorDocument`).
 On the GitHub Pages preview (no PHP) the form opens the visitor's email app instead.
