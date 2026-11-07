@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://techfahm.com
+Sitemap: https://techfahm.com/sitemap.xml

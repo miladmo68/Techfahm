@@ -1,0 +1,6 @@
+:HL["/_next/static/chunks/0q_nut81icnuz.css","style"]
+:HL["/_next/static/media/GeistMono_Variable.p.2vtemngyy8z-u.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/Geist_Variable-s.p.43azbxi7zpibd.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+2:[["children",{"s":"__PAGE__","h":160}]]
+1:[["children",{"s":"our-team","h":64,"c":"$Q2"}]]
+0:{"b":"7mxQc2BJYh9Er1Wpg-7zQ","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
