@@ -37,11 +37,15 @@ its own daily backups (Hosting → Backups).
 Roll back to WordPress: move the files from `~/wordpress-backup-2026-11-07/` back into `public_html`
 (including its `.htaccess`) and disable the cron job.
 
-## Contact form (Web3Forms)
-Set a repository **variable** `WEB3FORMS_KEY` (Settings → Secrets and variables → Actions → Variables)
-to the access key Web3Forms emails to info@techfahm.com, then re-run the "Build production" workflow.
-Without a key the form opens the visitor's email app addressed to info@techfahm.com.
-Search-engine verification codes go in variables `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION`.
+## Contact form and 404 (the only PHP)
+`public/contact.php` receives the form (JSON POST from `contact-form.tsx`) and emails info@techfahm.com
+with PHP `mail()`. The sender is the hosting account's own address and Reply-To is the visitor, because
+techfahm.com mail runs on Microsoft 365 with strict SPF/DMARC (`-all`, `p=quarantine`) — sending "as"
+@techfahm.com from the web server would be rejected. If enquiries land in Junk, mark one "Not junk".
+Protection: POST only, same-site Origin, honeypot, 3-second minimum, 5 per IP per hour, length limits.
+`public/404.php` serves `404.html` with a real 404 status (the host ignores `ErrorDocument`).
+On the GitHub Pages preview (no PHP) the form opens the visitor's email app instead.
+Search-engine verification codes go in repository variables `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION`.
 
 ## Manual redeploy
 Actions → "Build production (techfahm.com)" → Run workflow. The server picks it up within 5 minutes.

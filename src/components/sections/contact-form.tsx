@@ -6,14 +6,15 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
+import { BASE_PATH } from "@/lib/base-path";
 import { EASE, cn } from "@/lib/utils";
 
 /**
- * Static-hosting friendly form: posts straight to Web3Forms (free).
- * Set NEXT_PUBLIC_WEB3FORMS_KEY in .env.local before building.
- * Without a key, it opens the visitor's email app with the message filled in.
+ * On techfahm.com the form posts to /contact.php (public/contact.php), which emails
+ * info@techfahm.com. The GitHub Pages preview (BASE_PATH set) has no PHP, so there it
+ * opens the visitor's email app with the message filled in.
  */
-const KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+const HAS_MAILER = !BASE_PATH;
 
 /** Bots submit instantly; people take a few seconds. Starts on first focus. */
 function createFillTimer() {
@@ -22,6 +23,7 @@ function createFillTimer() {
     start: () => {
       if (!start) start = Date.now();
     },
+    elapsed: () => (start ? Date.now() - start : 0),
     tooFast: () => !start || Date.now() - start < 3000,
   };
 }
@@ -68,7 +70,7 @@ export function ContactForm() {
       setState("error");
       return;
     }
-    if (!KEY) {
+    if (!HAS_MAILER) {
       const body = encodeURIComponent(
         `${v.message}\n\nName: ${v.name}\nCompany: ${v.company ?? ""}\nPhone: ${v.phone ?? ""}\nTopic: ${v.topic ?? ""}`,
       );
@@ -77,15 +79,10 @@ export function ContactForm() {
     }
     setState("sending");
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/contact.php", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: KEY,
-          subject: `New consultation request from ${v.name}`,
-          from_name: "techfahm.com",
-          ...v,
-        }),
+        body: JSON.stringify({ ...v, elapsed: timer.elapsed() }),
       });
       const json = await res.json();
       if (!json.success) throw new Error(json.message);

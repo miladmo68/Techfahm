@@ -56,7 +56,9 @@ FileETag None
   RewriteCond %{QUERY_STRING} (union.*select|concat\(|base64_) [NC]
   RewriteRule .* - [F,L]
 
-  # 7) Only allow normal methods on a static site
+  # 7) Only allow normal methods on a static site (POST only for the contact form)
+  RewriteCond %{REQUEST_METHOD} =POST
+  RewriteRule ^contact\.php$ - [L]
   RewriteCond %{REQUEST_METHOD} !^(GET|HEAD|OPTIONS)$
   RewriteRule .* - [F,L]
 
@@ -64,6 +66,11 @@ FileETag None
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,6}|/)$
   RewriteRule ^(.*)$ /$1/ [L,R=301]
+
+  # 9) Our own 404 page with a real 404 status (the host ignores ErrorDocument)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ /404.php [L]
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -73,8 +80,8 @@ FileETag None
   # HTTPS only for one year (add "; preload" only after testing every subdomain)
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=TF_SITE
 
-  # Content Security Policy — only our own files, plus Web3Forms for the contact form
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://api.web3forms.com; form-action 'self' https://api.web3forms.com mailto:; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests" env=TF_SITE
+  # Content Security Policy — only our own files, contact form posts to /contact.php
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; form-action 'self' mailto:; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests" env=TF_SITE
 
   Header always set X-Content-Type-Options "nosniff" env=TF_SITE
   Header always set X-Frame-Options "DENY" env=TF_SITE

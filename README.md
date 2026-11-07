@@ -65,7 +65,6 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 
 | Variable | What it's for |
 |---|---|
-| `NEXT_PUBLIC_WEB3FORMS_KEY` | Free key from [web3forms.com](https://web3forms.com). Without it, the form opens the visitor's email app instead. |
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Google Search Console HTML-tag code |
 | `NEXT_PUBLIC_BING_SITE_VERIFICATION` | Bing Webmaster Tools code |
 

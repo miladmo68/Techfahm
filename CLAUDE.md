@@ -1,6 +1,6 @@
 # CLAUDE.md — read this first
 
-This is the **Techfahm.com redesign**: a static Next.js site that replaces the old WordPress site and is uploaded to **cPanel shared hosting** (no Node server, no PHP).
+This is the **Techfahm.com redesign**: a static Next.js site that replaces the old WordPress site and is uploaded to **cPanel shared hosting** (no Node server). The only PHP is `public/contact.php` (form → email) and `public/404.php`; keep it that way.
 
 ## Before you change anything
 1. Read `docs/CONTEXT.md` — decisions, design system, file map, status and change log.

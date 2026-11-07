@@ -34,9 +34,6 @@ jobs:
       - name: Build static site for techfahm.com
         run: npm run build
         env:
-          # The Web3Forms access key is public by design (it ships in the page).
-          # Set it as a repository variable or secret named WEB3FORMS_KEY.
-          NEXT_PUBLIC_WEB3FORMS_KEY: ${{ vars.WEB3FORMS_KEY || secrets.WEB3FORMS_KEY }}
           NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
           NEXT_PUBLIC_BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
       - name: Sanity check

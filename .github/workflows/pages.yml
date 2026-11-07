@@ -31,7 +31,6 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /Techfahm
-          NEXT_PUBLIC_WEB3FORMS_KEY: ${{ secrets.WEB3FORMS_KEY }}
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
