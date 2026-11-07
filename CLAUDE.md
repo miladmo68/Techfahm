@@ -13,6 +13,7 @@ This is the **Techfahm.com redesign**: a static Next.js site that replaces the o
 - Keep the **old WordPress URLs with trailing slashes** (`/services/<slug>/`, `/industry/<slug>/`, `/partners/`, `/our-team/`, `/contact/`). Location pages live at `/managed-it-services-<city>/`.
 - Every new page needs: `pageMeta(...)` metadata, an `opengraph-image.tsx` (with `dynamic = "force-static"`), JSON-LD where relevant, and an entry in `src/app/sitemap.ts`.
 - Public asset URLs written by hand must use `asset()` from `src/lib/base-path.ts` (GitHub Pages preview runs under `/Techfahm`).
+- Deploys: push to `main` → `production` branch → cPanel cron copies it (see `docs/DEPLOY.md`). `public_html` also holds other sites (`techfahm.ca/`, `turkiyemakinesi.com/`, `logo-banner/`) — never delete them, and keep every `.htaccess` rule/header scoped to the techfahm.com host.
 - Security headers live in `public/.htaccess`. If you add a third-party service (analytics, maps, chat), add its domain to the CSP there or it will be blocked.
 - **No Client Portal** link anywhere (the old `techfahm.myportallogin.com` link was removed on purpose).
 - **No hotlinked images.** Every image lives in the project. Add new images to `SOURCES` in `scripts/images.mjs`, run `npm run images`, then use `<Photo name="..." />`.

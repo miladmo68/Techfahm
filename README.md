@@ -71,11 +71,9 @@ Copy `.env.example` to `.env.local` and fill in what you need:
 
 ## Deploy to cPanel (techfahm.com)
 
-1. **Back up the WordPress site** (cPanel → Backup Wizard), then move the old files out of `public_html`. Removing WordPress from the server is the single biggest security improvement.
-2. Run `npm run build`, then `cd out && zip -r ../techfahm-site.zip . && cd ..`
-3. In cPanel → File Manager → `public_html`, upload and extract `techfahm-site.zip`. Turn on *Show Hidden Files* and check that `.htaccess` and `.well-known/` are there.
-4. Check https://techfahm.com, then test the headers at [securityheaders.com](https://securityheaders.com) and the tags at [Google's Rich Results Test](https://search.google.com/test/rich-results).
-5. In [Google Search Console](https://search.google.com/search-console) and [Bing Webmaster Tools](https://www.bing.com/webmasters), verify the site and submit `https://techfahm.com/sitemap.xml`.
+Automatic, with no FTP password stored anywhere. Every push to `main` builds the site in GitHub Actions and pushes it to the `production` branch; a cron job on the cPanel account copies new builds into `public_html` within 5 minutes. Details, rollback and the folders in `public_html` that belong to other sites: [`docs/DEPLOY.md`](docs/DEPLOY.md).
+
+After going live: verify the site in [Google Search Console](https://search.google.com/search-console) and [Bing Webmaster Tools](https://www.bing.com/webmasters) and submit `https://techfahm.com/sitemap.xml`.
 
 ## Working on the project
 
